@@ -155,7 +155,7 @@ img, video {display:block; max-width:100%}
 
 /* Keep the desktop composition at the requested starting scale. */
 @media (min-width: 900px) {
-  #site { zoom: .55; }
+  #site { zoom: .825; }
 }
 .metrics .metric-icon {width:1.85em;height:1.85em;object-fit:contain}
 .card .card-medal {
@@ -170,11 +170,25 @@ img, video {display:block; max-width:100%}
 .project-gallery {position:relative;isolation:isolate;overflow:hidden;padding:clamp(26px,4vw,75px) 0 4rem}
 .gallery-prompt {text-align:center;color:var(--green);font-size:clamp(1rem,1.5vw,1.85rem);margin-bottom:clamp(24px,6vw,110px)}
 .gallery-glow {
-  position:absolute; z-index:-1; pointer-events:none; inset:0; opacity:.8;
-  background:url("assets/배경용 그라데이션 원.png") left top / min(54vw,900px) auto repeat-y;
-  animation:gallery-drift 25s ease-in-out infinite alternate;
+  position:absolute;
+  z-index:-1;
+  pointer-events:none;
+  left:15%;
+  top:22%;
+  width:clamp(260px,44vw,780px);
+  aspect-ratio:678 / 1056;
+  opacity:.65;
+  background:url("assets/배경용 그라데이션 원.png") center / contain no-repeat;
+  mask-image:linear-gradient(to right,transparent,black 24%);
+  transform:translate(-50%,-50%);
+  animation:gallery-drift 78s ease-in-out infinite;
 }
-@keyframes gallery-drift { from {background-position:0 0} to {background-position:100% 260px} }
+@keyframes gallery-drift {
+  0%,100% {left:15%;top:22%}
+  25% {left:72%;top:30%}
+  50% {left:86%;top:70%}
+  75% {left:32%;top:78%}
+}
 .project-gallery .card {transition:transform .23s,box-shadow .23s}
 .project-gallery .card:hover,.project-gallery .card:focus-visible {transform:scale(1.045);z-index:2}
 .project-gallery .card img:not(.card-medal) {inset:0;width:100%;height:100%;opacity:1}
