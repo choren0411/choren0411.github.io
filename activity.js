@@ -698,6 +698,25 @@ const activityProjects = [
     "photos": [
       "memories-1",
       "memories-2"
+    ],
+    "processMedia": [
+      [
+        "memories-process-event.jpg",
+        "제2회 스파르타게임잼 현장",
+        true
+      ],
+      [
+        "memories-process-demo.jpg",
+        "How Can I Make Memories 현장 시연 화면",
+        true
+      ]
+    ],
+    "outcomeMedia": [
+      [
+        "memories-outcome-group.jpg",
+        "제2회 스파르타게임잼 참가자 단체 사진",
+        true
+      ]
     ]
   },
   {
@@ -894,6 +913,18 @@ const activityProjects = [
     "video": "ssangryuk.mp4",
     "photos": [
       "ssangryuk-1"
+    ],
+    "outcomeMedia": [
+      [
+        "ssangryuk-award-stage.jpg",
+        "2025 게임인재단 공모전 쌍륙 대상 수상 장면",
+        true
+      ],
+      [
+        "ssangryuk-award-group.jpg",
+        "2025 게임인재단 공모전 수상자 단체 사진",
+        true
+      ]
     ]
   },
   {

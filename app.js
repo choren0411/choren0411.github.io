@@ -83,9 +83,8 @@ function renderMain() {
   renderPreview();
 }
 
-function story(title, rows = [], reverse = false, media = []) {
-  if (!rows.length && !media.length) return '';
-  const gallery = media.length ? `<div class="story-photos">
+function renderStoryMedia(media = []) {
+  return media.length ? `<div class="story-photos">
     ${media.map(([filename, label, fullSize]) => {
       const url = `assets/${escapeHtml(filename)}`;
       const title = escapeHtml(label);
@@ -96,10 +95,14 @@ function story(title, rows = [], reverse = false, media = []) {
       return fullSize ? `<a href="${url}" target="_blank" rel="noopener">${photo}</a>` : photo;
     }).join('')}
   </div>` : '';
+}
+
+function story(title, rows = [], reverse = false, media = []) {
+  if (!rows.length && !media.length) return '';
   return `<section class="story wrap ${reverse ? 'reverse' : ''}"><h2>${title}</h2>
     ${rows.map(([image, alt, description]) => `<div class="story-row${image ? '' : ' story-text'}">
       <p>${escapeHtml(description)}</p>${image ? `<img src="${imagePath(image)}" alt="${escapeHtml(alt)}" loading="lazy">` : ''}
-    </div>`).join('')}${gallery}</section>`;
+    </div>`).join('')}${renderStoryMedia(media)}</section>`;
 }
 
 function renderProject(project) {
@@ -130,8 +133,9 @@ function renderProject(project) {
       ${project.tools?.length ? `<h3 class="tools-heading">활용 도구</h3>
         <ul class="chips">${project.tools.map(tool => `<li>${escapeHtml(tool)}</li>`).join('')}</ul>` : ''}
     </section>` : ''}
-    ${project.status || project.award || project.outcome ? `<section class="outcome wrap"><h2>주요 성과</h2>
-      ${[project.award, project.status, project.outcome].filter(Boolean).map(item => `<p>${escapeHtml(item)}</p>`).join('')}</section>` : ''}
+    ${project.status || project.award || project.outcome || project.outcomeMedia?.length ? `<section class="outcome wrap"><h2>주요 성과</h2>
+      ${[project.award, project.status, project.outcome].filter(Boolean).map(item => `<p>${escapeHtml(item)}</p>`).join('')}
+      ${renderStoryMedia(project.outcomeMedia)}</section>` : ''}
     ${project.playUrl ? `<a class="play" href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel || '게임 플레이')}</a>`
       : project.linkLabel ? `<p class="release-status wrap">${escapeHtml(project.linkLabel)}</p>` : ''}
     <nav class="project-next" aria-label="다른 프로젝트"${next.cover ? ` style="--cover:url('${imagePath(next.cover)}')"` : ''}>
