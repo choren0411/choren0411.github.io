@@ -1136,7 +1136,12 @@ const activityProjects = [
     "cover": "bystander-2",
     "photos": [
       "bystander-1",
-      "bystander-2"
+      "bystander-2",
+      "bystander-slide-1.png",
+      "bystander-slide-2.png",
+      "bystander-slide-3.png",
+      "bystander-slide-4.png",
+      "bystander-slide-5.png"
     ],
     "outcomeMedia": [
       [
