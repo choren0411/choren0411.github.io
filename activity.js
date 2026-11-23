@@ -675,6 +675,68 @@ const activityProjects = [
     "photos": [
       "horrops-full-1",
       "horrops-full-2"
+    ],
+    "processMedia": [
+      [
+        "horrops-plan-1.png",
+        "Horrops 기획서 1쪽",
+        true
+      ],
+      [
+        "horrops-plan-2.png",
+        "Horrops 기획서 2쪽",
+        true
+      ],
+      [
+        "horrops-plan-3.png",
+        "Horrops 기획서 3쪽",
+        true
+      ],
+      [
+        "horrops-plan-4.png",
+        "Horrops 기획서 4쪽",
+        true
+      ],
+      [
+        "horrops-plan-5.png",
+        "Horrops 기획서 5쪽",
+        true
+      ],
+      [
+        "horrops-plan-6.png",
+        "Horrops 기획서 6쪽",
+        true
+      ],
+      [
+        "horrops-plan-7.png",
+        "Horrops 기획서 7쪽",
+        true
+      ],
+      [
+        "horrops-plan-8.png",
+        "Horrops 기획서 8쪽",
+        true
+      ],
+      [
+        "horrops-plan-9.png",
+        "Horrops 기획서 9쪽",
+        true
+      ],
+      [
+        "horrops-gameaify-1.png",
+        "GameAIfy 아트 에셋 제작 화면 1",
+        true
+      ],
+      [
+        "horrops-gameaify-5.png",
+        "GameAIfy 아트 에셋 제작 화면 5",
+        true
+      ],
+      [
+        "horrops-gameaify-10.png",
+        "GameAIfy 아트 에셋 제작 화면 10",
+        true
+      ]
     ]
   },
   {

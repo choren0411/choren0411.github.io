@@ -86,9 +86,15 @@ function renderMain() {
 function story(title, rows = [], reverse = false, media = []) {
   if (!rows.length && !media.length) return '';
   const gallery = media.length ? `<div class="story-photos">
-    ${media.map(([filename, label]) => filename.endsWith('.webm')
-      ? `<figure><video src="assets/${escapeHtml(filename)}" aria-label="${escapeHtml(label)}" preload="none" controls playsinline></video><figcaption>${escapeHtml(label)}</figcaption></figure>`
-      : `<img src="assets/${escapeHtml(filename)}" alt="${escapeHtml(label)}" loading="lazy">`).join('')}
+    ${media.map(([filename, label, fullSize]) => {
+      const url = `assets/${escapeHtml(filename)}`;
+      const title = escapeHtml(label);
+      if (filename.endsWith('.webm')) {
+        return `<figure><video src="${url}" aria-label="${title}" preload="none" controls playsinline></video><figcaption>${title}</figcaption></figure>`;
+      }
+      const photo = `<img src="${url}" alt="${title}" loading="lazy">`;
+      return fullSize ? `<a href="${url}" target="_blank" rel="noopener">${photo}</a>` : photo;
+    }).join('')}
   </div>` : '';
   return `<section class="story wrap ${reverse ? 'reverse' : ''}"><h2>${title}</h2>
     ${rows.map(([image, alt, description]) => `<div class="story-row${image ? '' : ' story-text'}">
