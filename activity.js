@@ -1001,6 +1001,18 @@ const activityProjects = [
     "photos": [
       "floor-1",
       "floor-2"
+    ],
+    "outcomeMedia": [
+      [
+        "floor-outcome-presentation.png",
+        "FLOOR 프로젝트 발표 현장",
+        true
+      ],
+      [
+        "floor-outcome-group.png",
+        "BUD 게임 콘테스트 현장 단체 사진",
+        true
+      ]
     ]
   },
   {
