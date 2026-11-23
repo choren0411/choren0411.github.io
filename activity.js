@@ -66,7 +66,7 @@ const activityProjects = [
       "colla-game",
       "colla-stage"
     ],
-    "processPhotos": [
+    "processMedia": [
       [
         "colla-zoo-process-1.png",
         "Unity Game Jam 개발 앱의 채팅 화면"
@@ -230,7 +230,7 @@ const activityProjects = [
       "hai-12",
       "hai-25"
     ],
-    "processPhotos": [
+    "processMedia": [
       [
         "hai-process-1.png",
         "HAI의 분야별 AI 도구 활용 자료"
@@ -268,7 +268,7 @@ const activityProjects = [
       "play-your-way-1",
       "play-your-way-2"
     ],
-    "processPhotos": [
+    "processMedia": [
       [
         "play-your-way-process-1.png",
         "PLAY it YOUR WAY 화면 디자인 시안"
@@ -384,6 +384,56 @@ const activityProjects = [
     "photos": [
       "stickerbook-1",
       "stickerbook-2"
+    ],
+    "processMedia": [
+      [
+        "stickerbook-process-1.png",
+        "햄스터의 스티커북 상점 스크린샷 1"
+      ],
+      [
+        "stickerbook-process-2.png",
+        "햄스터의 스티커북 상점 스크린샷 2"
+      ],
+      [
+        "stickerbook-process-3.png",
+        "햄스터의 스티커북 상점 스크린샷 3"
+      ],
+      [
+        "stickerbook-process-4.png",
+        "햄스터의 스티커북 상점 스크린샷 4"
+      ],
+      [
+        "stickerbook-process-5.png",
+        "햄스터의 스티커북 상점 스크린샷 5"
+      ],
+      [
+        "stickerbook-process-basics.webm",
+        "기본 기능"
+      ],
+      [
+        "stickerbook-process-album.webm",
+        "스티커북 둘러보기"
+      ],
+      [
+        "stickerbook-process-memo.webm",
+        "메모지 사용"
+      ],
+      [
+        "stickerbook-process-letters.webm",
+        "알파벳 스티커 붙이기"
+      ],
+      [
+        "stickerbook-process-shop.webm",
+        "상점"
+      ],
+      [
+        "stickerbook-process-draw.webm",
+        "스티커 뽑기"
+      ],
+      [
+        "stickerbook-process-figma.webm",
+        "Figma 화면"
+      ]
     ]
   },
   {
@@ -508,7 +558,7 @@ const activityProjects = [
       "suncheon-full-1",
       "suncheon-full-2"
     ],
-    "processPhotos": [
+    "processMedia": [
       [
         "suncheon-process-1.png",
         "천만해요, 순천만의 아트·개발 AI 활용 자료"
@@ -950,7 +1000,7 @@ const activityProjects = [
       ]
     ],
     "ai": false,
-    "processPhotos": [
+    "processMedia": [
       [
         "unbelibubble-process-1.png",
         "Unbubblibubble 타이틀 화면 시안"

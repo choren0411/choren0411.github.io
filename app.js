@@ -83,10 +83,12 @@ function renderMain() {
   renderPreview();
 }
 
-function story(title, rows = [], reverse = false, photos = []) {
-  if (!rows.length && !photos.length) return '';
-  const gallery = photos.length ? `<div class="story-photos">
-    ${photos.map(([filename, alt]) => `<img src="assets/${escapeHtml(filename)}" alt="${escapeHtml(alt)}" loading="lazy">`).join('')}
+function story(title, rows = [], reverse = false, media = []) {
+  if (!rows.length && !media.length) return '';
+  const gallery = media.length ? `<div class="story-photos">
+    ${media.map(([filename, label]) => filename.endsWith('.webm')
+      ? `<figure><video src="assets/${escapeHtml(filename)}" aria-label="${escapeHtml(label)}" preload="none" controls playsinline></video><figcaption>${escapeHtml(label)}</figcaption></figure>`
+      : `<img src="assets/${escapeHtml(filename)}" alt="${escapeHtml(label)}" loading="lazy">`).join('')}
   </div>` : '';
   return `<section class="story wrap ${reverse ? 'reverse' : ''}"><h2>${title}</h2>
     ${rows.map(([image, alt, description]) => `<div class="story-row${image ? '' : ' story-text'}">
@@ -114,7 +116,7 @@ function renderProject(project) {
       ${project.headline ? `<h3>${escapeHtml(project.headline)}</h3>` : ''}
       ${project.description ? `<p>${escapeHtml(project.description)}</p>` : ''}</section>` : ''}
     ${story('기획 의도', project.intent)}
-    ${story('개발 과정', project.process, true, project.processPhotos)}
+    ${story('개발 과정', project.process, true, project.processMedia)}
     ${project.contributions || project.tools?.length || project.role ? `<section class="contribution wrap"><h2>기여도</h2>
       ${project.role ? `<p>${escapeHtml(project.role)}</p>` : ''}
       ${(project.contributions ?? []).map(([label, amount, color]) => `<div class="bar ${color}">
