@@ -82,6 +82,26 @@ const activityProjects = [
       [
         "colla-zoo-process-4.png",
         "Colla-ZOO의 AI 개발 흐름"
+      ],
+      [
+        "colla-zoo-poster.png",
+        "Colla-ZOO 한국어 전시 포스터",
+        true
+      ],
+      [
+        "colla-zoo-booth-wide.jpg",
+        "지스타 Unity 부스 전경과 Colla-ZOO 시연 화면",
+        true
+      ],
+      [
+        "colla-zoo-booth-demo.jpg",
+        "Unity AI Game Jam CLI Special Prize 안내판과 Colla-ZOO 시연대",
+        true
+      ],
+      [
+        "colla-zoo-booth-side.jpg",
+        "Colla-ZOO 시연대와 Unity CLI 전시 안내",
+        true
       ]
     ]
   },
