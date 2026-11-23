@@ -379,13 +379,6 @@ const activityProjects = [
         "monstone-process-recording.mp4",
         "몬스톤 개발 과정 화면 녹화"
       ]
-    ],
-    "outcomeMedia": [
-      [
-        "monstone-outcome-makerthon.jpg",
-        "2026 메커톤 몬스톤 팀 현장 사진",
-        true
-      ]
     ]
   },
   {
@@ -1001,18 +994,6 @@ const activityProjects = [
     "photos": [
       "floor-1",
       "floor-2"
-    ],
-    "outcomeMedia": [
-      [
-        "floor-outcome-presentation.png",
-        "FLOOR 프로젝트 발표 현장",
-        true
-      ],
-      [
-        "floor-outcome-group.png",
-        "BUD 게임 콘테스트 현장 단체 사진",
-        true
-      ]
     ]
   },
   {
