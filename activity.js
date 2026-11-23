@@ -367,6 +367,13 @@ const activityProjects = [
         "monstone-process-recording.mp4",
         "몬스톤 개발 과정 화면 녹화"
       ]
+    ],
+    "outcomeMedia": [
+      [
+        "monstone-outcome-makerthon.jpg",
+        "2026 메커톤 몬스톤 팀 현장 사진",
+        true
+      ]
     ]
   },
   {
@@ -1084,6 +1091,13 @@ const activityProjects = [
     "photos": [
       "bystander-1",
       "bystander-2"
+    ],
+    "outcomeMedia": [
+      [
+        "mandle-finalists.png",
+        "눈사랑과 방관자가 포함된 결승전 진출작 목록",
+        true
+      ]
     ]
   },
   {
@@ -1130,6 +1144,13 @@ const activityProjects = [
     "photos": [
       "snow-love-1",
       "snow-love-2"
+    ],
+    "outcomeMedia": [
+      [
+        "mandle-finalists.png",
+        "눈사랑과 방관자가 포함된 결승전 진출작 목록",
+        true
+      ]
     ]
   },
   {
