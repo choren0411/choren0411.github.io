@@ -259,6 +259,18 @@ const activityProjects = [
         "hai-process-2.png",
         "HAI의 LLM 페르소나 연동 자료"
       ]
+    ],
+    "outcomeMedia": [
+      [
+        "hai-outcome-hackathon.jpg",
+        "NHN 게임 × AI 해커톤 RatsGO 팀 자리",
+        true
+      ],
+      [
+        "hai-outcome-stage.jpg",
+        "NHN 게임 × AI 해커톤 발표 현장",
+        true
+      ]
     ]
   },
   {
@@ -588,6 +600,18 @@ const activityProjects = [
       [
         "hamstory-process-instagram.png",
         "도토리도굴단 인스타그램 프로필",
+        true
+      ]
+    ],
+    "outcomeMedia": [
+      [
+        "hamstory-outcome-playx4-group.jpg",
+        "2026 PlayX4 인디씨드 시상식 단체 사진",
+        true
+      ],
+      [
+        "hamstory-outcome-playx4-award.jpg",
+        "2026 PlayX4 인디씨드 베이스 공간장인상 시상 사진",
         true
       ]
     ]
