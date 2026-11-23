@@ -94,6 +94,10 @@ img, video {display:block; max-width:100%}
 .facts dt {color:var(--muted);margin-bottom:.4rem}
 .story-row {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5%;margin-bottom:clamp(28px,5vw,85px)}
 .story-row p {margin:0}
+.story-text {grid-template-columns:1fr}
+.contribution p+.bar,.tools-heading {margin-top:1.5rem}
+.tools-heading {font-size:1rem}
+.release-status {margin-block:2rem;text-align:center;color:var(--muted)}
 .story-row img {width:100%}
 .story.reverse img {order:-1}
 .chips {display:flex; flex-wrap:wrap; gap:.65rem; padding:0; list-style:none}

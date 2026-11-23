@@ -86,8 +86,8 @@ function renderMain() {
 function story(title, rows, reverse = false) {
   if (!rows?.length) return '';
   return `<section class="story wrap ${reverse ? 'reverse' : ''}"><h2>${title}</h2>
-    ${rows.map(([image, alt, description]) => `<div class="story-row">
-      <p>${escapeHtml(description)}</p><img src="${imagePath(image)}" alt="${escapeHtml(alt)}" loading="lazy">
+    ${rows.map(([image, alt, description]) => `<div class="story-row${image ? '' : ' story-text'}">
+      <p>${escapeHtml(description)}</p>${image ? `<img src="${imagePath(image)}" alt="${escapeHtml(alt)}" loading="lazy">` : ''}
     </div>`).join('')}</section>`;
 }
 
@@ -104,21 +104,25 @@ function renderProject(project) {
         ${project.award ? `<div class="award yellow"><img src="assets/win.png${assetRevision}" alt="">${escapeHtml(project.award)}</div>` : ''}
       </div>
     </header>
-    ${gallery ? '<section id="gallery" class="gallery" aria-label="프로젝트 시연 및 스크린샷"></section>' : ''}
-    ${project.description ? `<section class="game-description wrap"><h2>게임 설명</h2>
-      ${project.headline ? `<h3>${escapeHtml(project.headline)}</h3>` : ''}<p>${escapeHtml(project.description)}</p></section>` : ''}
     ${project.facts ? `<dl class="facts wrap">${project.facts.map(([label, value]) =>
       `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl>` : ''}
+    ${gallery ? '<section id="gallery" class="gallery" aria-label="프로젝트 시연 및 스크린샷"></section>' : ''}
+    ${project.headline || project.description ? `<section class="game-description wrap"><h2>프로젝트 소개</h2>
+      ${project.headline ? `<h3>${escapeHtml(project.headline)}</h3>` : ''}
+      ${project.description ? `<p>${escapeHtml(project.description)}</p>` : ''}</section>` : ''}
     ${story('기획 의도', project.intent)}
     ${story('개발 과정', project.process, true)}
     ${project.contributions || project.tools?.length || project.role ? `<section class="contribution wrap"><h2>기여도</h2>
-      <ul class="chips">${(project.tools ?? []).map(tool => `<li>${escapeHtml(tool)}</li>`).join('')}</ul>
+      ${project.role ? `<p>${escapeHtml(project.role)}</p>` : ''}
       ${(project.contributions ?? []).map(([label, amount, color]) => `<div class="bar ${color}">
-        <label>${label} ${amount}%<meter min="0" max="100" value="${amount}">${amount}%</meter></label></div>`).join('')}
-      ${project.role ? `<p>${escapeHtml(project.role)}</p>` : ''}</section>` : ''}
+        <label>${escapeHtml(label)} ${amount}%<meter min="0" max="100" value="${amount}">${amount}%</meter></label></div>`).join('')}
+      ${project.tools?.length ? `<h3 class="tools-heading">활용 도구</h3>
+        <ul class="chips">${project.tools.map(tool => `<li>${escapeHtml(tool)}</li>`).join('')}</ul>` : ''}
+    </section>` : ''}
     ${project.status || project.award || project.outcome ? `<section class="outcome wrap"><h2>주요 성과</h2>
       ${[project.award, project.status, project.outcome].filter(Boolean).map(item => `<p>${escapeHtml(item)}</p>`).join('')}</section>` : ''}
-    ${project.playUrl ? `<a class="play" href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel || '게임 플레이 링크')} ↗</a>` : ''}
+    ${project.playUrl ? `<a class="play" href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel || '게임 플레이')}</a>`
+      : project.linkLabel ? `<p class="release-status wrap">${escapeHtml(project.linkLabel)}</p>` : ''}
     <nav class="project-next" aria-label="다른 프로젝트"${next.cover ? ` style="--cover:url('${imagePath(next.cover)}')"` : ''}>
       <a href="${projectLink(previous)}" aria-label="이전 프로젝트 ${escapeHtml(previous.title)}">◀ <span>Previous</span></a>
       <a class="next-title" href="${projectLink(next)}">${escapeHtml(next.title)}</a>
