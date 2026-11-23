@@ -1064,10 +1064,22 @@ const activityProjects = [
       ]
     ],
     "ai": false,
-    "cover": "hamster-legacy-1",
+    "cover": "hamster-legacy-new-cover.png",
     "photos": [
       "hamster-legacy-1",
-      "hamster-legacy-2"
+      "hamster-legacy-2",
+      "hamster-legacy-new-intro.png",
+      "hamster-legacy-new-tom.png",
+      "hamster-legacy-new-gameplay.png",
+      "hamster-legacy-new-bobby.png",
+      "hamster-legacy-new-failure.png"
+    ],
+    "processMedia": [
+      [
+        "hamster-legacy-process-unity.png",
+        "Hamster Legacy의 Unity 레벨 배치와 타이틀 화면 구성",
+        true
+      ]
     ]
   },
   {
