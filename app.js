@@ -59,7 +59,7 @@ function renderProjectIndex() {
       <div class="gallery-glow" aria-hidden="true"></div>
       <div class="wrap ${colors[projectCategory]}">
         <p class="gallery-prompt">= 궁금한 활동은 클릭해주세요 =</p>
-        <div class="cards">${cards(categories[projectCategory])}</div>
+        <div class="cards">${cards(categories[projectCategory].filter(project => project.id !== 'play-your-way'))}</div>
       </div>
     </div>
   </section>`;
