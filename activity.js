@@ -497,6 +497,30 @@ const activityProjects = [
       "hamstory-screenshot-4",
       "hamstory-screenshot-5",
       "hamstory-screenshot-6"
+    ],
+    "process": [
+      [
+        null,
+        null,
+        "아트·기획·개발 전반에 참여하며 게임 제작부터 Steam 출시까지 전 과정을 경험했습니다. 출시를 준비하며 스토브 Indie Boost Lab과 PlayX4 전시에 참여했고, 해외 콘솔 퍼블리싱 계약을 체결해 실제 매출로 이어지는 과정도 경험했습니다."
+      ],
+      [
+        null,
+        null,
+        "출시를 준비하면서 브랜드 SNS 계정을 개설하고 운영했습니다. 유튜브 구독자 178명, 인스타그램 팔로워 약 1,200명으로 채널을 성장시키며 콘텐츠로 새로운 이용자를 유입시키는 역량을 키웠습니다."
+      ]
+    ],
+    "processMedia": [
+      [
+        "hamstory-process-youtube.png",
+        "Hamstory 유튜브 쇼츠 개발 일지",
+        true
+      ],
+      [
+        "hamstory-process-instagram.png",
+        "도토리도굴단 인스타그램 프로필",
+        true
+      ]
     ]
   },
   {
