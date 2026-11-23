@@ -949,6 +949,23 @@ const activityProjects = [
         "2025 게임인재단 공모전 수상자 단체 사진",
         true
       ]
+    ],
+    "processMedia": [
+      [
+        "ssangryuk-process-tutorial.png",
+        "쌍륙 튜토리얼 화면과 규칙 설계",
+        true
+      ],
+      [
+        "ssangryuk-process-storyboard.png",
+        "쌍륙 오프닝 컷신 스토리보드",
+        true
+      ],
+      [
+        "ssangryuk-process-application.png",
+        "개인정보를 가린 쌍륙 공모전 신청서와 AI 활용 내역",
+        true
+      ]
     ]
   },
   {
