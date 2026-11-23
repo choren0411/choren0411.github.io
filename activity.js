@@ -347,11 +347,26 @@ const activityProjects = [
       ]
     ],
     "ai": false,
-    "cover": "monstone-1",
+    "cover": "monstone-cover.png",
     "video": "monstone.mp4",
     "photos": [
       "monstone-1",
-      "monstone-2"
+      "monstone-2",
+      "monstone-mobile-select",
+      "monstone-mobile-play"
+    ],
+    "intent": [
+      [
+        "monstone-intent.gif",
+        "몬스톤을 튕겨 적을 물리치는 플레이 장면",
+        "짧은 시간에도 부담 없이 몰입할 수 있는 메이플스토리 IP 게임을 찾는 이용자를 주요 대상으로 삼았습니다. 한 번의 드래그로 몬스톤을 튕기는 조작을 중심으로, 처음 접하는 이용자도 빠르게 익힐 수 있는 플레이 흐름을 설계했습니다. 모바일과 웹 모두에서 같은 조작 방식으로 즐길 수 있도록 크로스플랫폼 플레이를 고려했습니다."
+      ]
+    ],
+    "processMedia": [
+      [
+        "monstone-process-recording.mp4",
+        "몬스톤 개발 과정 화면 녹화"
+      ]
     ]
   },
   {
