@@ -7,7 +7,7 @@ const activityProjects = [
     "description": "6종의 동물이 머리·몸통·다리를 나눠 맡아 연구소를 탈출하는 협동 게임입니다. 216가지 조합에 따라 외형과 능력이 달라지며, 서로 다른 기믹이 있는 7개 방을 통과합니다.",
     "award": "Unity CLI Special Prize",
     "outcome": "24시간 동안 개발했으며, 수상 후 지스타 유니티 부스에 전시했습니다.",
-    "linkLabel": "공개 예정",
+    "linkLabel": "게임 플레이",
     "facts": [
       [
         "기간",
@@ -103,7 +103,22 @@ const activityProjects = [
         "Colla-ZOO 시연대와 Unity CLI 전시 안내",
         true
       ]
-    ]
+    ],
+    "outcomeLinks": [
+      [
+        "ZDNet Korea · 유니티 AI 게임잼 현장 취재",
+        "https://zdnet.co.kr/view/?no=20261120190933"
+      ],
+      [
+        "인벤 · 유니티 AI 게임잼 관련 기사 (1)",
+        "https://www.inven.co.kr/webzine/news/?news=323669"
+      ],
+      [
+        "인벤 · 유니티 AI 게임잼 관련 기사 (2)",
+        "https://www.inven.co.kr/webzine/news/?news=323546"
+      ]
+    ],
+    "playUrl": "https://play.unity.com/ko/games/753d3bc6-297f-460f-8036-b94006576502/colla-zoo"
   },
   {
     "id": "nara",
@@ -1043,10 +1058,10 @@ const activityProjects = [
       [
         null,
         null,
-        "아인슈페너 한 잔처럼 달콤하고 부드럽게 즐길 수 있는 게임을 만들고자 했습니다. 부드러운 크림 아래 진한 커피가 있듯, 편안한 모험 속에 깊이 있는 이야기와 메시지를 담았습니다. 커피 한 잔 가격으로 달콤함과 사색이 어우러진 우주 모험을 즐길 수 있도록 기획했습니다."
+        "공모전 주제인 ‘커피 한 잔’에 맞춰 아인슈페너 한 잔처럼 달콤하고 부드럽게 즐길 수 있는 게임을 만들고자 했습니다. 부드러운 크림 아래 진한 커피가 있듯, 편안한 모험 속에 깊이 있는 이야기와 메시지를 담았습니다. 커피 한 잔 가격으로 달콤함과 사색이 어우러진 우주 모험을 즐길 수 있도록 기획했습니다."
       ]
     ],
-    "role": "레벨 디자인을 기획했습니다.",
+    "role": "Unity를 사용해 5개 스테이지의 레벨을 디자인하고, 레벨별 기믹과 인게임 플레이 루프, 핵심 메커니즘을 고안했습니다.",
     "tools": [
       "Unity",
       "Figma"

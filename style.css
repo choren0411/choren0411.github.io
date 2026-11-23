@@ -101,6 +101,8 @@ img, video {display:block; max-width:100%}
 .story-row img {width:100%}
 .story-photos {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 23rem),1fr));gap:clamp(1rem,3vw,2rem);align-items:start}
 .story-photos img,.story-photos video {display:block;width:100%;height:auto;max-width:54rem}
+.outcome-links {margin-top:1.25rem;padding-inline-start:1.25rem;line-height:1.8}
+.outcome-links a {text-decoration:underline;text-underline-offset:.2em}
 .outcome p + .story-photos {margin-top:clamp(1rem,3vw,2rem)}
 .story-photos figure {margin:0}
 .story-photos video {aspect-ratio:780/439;background:#000}

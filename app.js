@@ -133,8 +133,11 @@ function renderProject(project) {
       ${project.tools?.length ? `<h3 class="tools-heading">활용 도구</h3>
         <ul class="chips">${project.tools.map(tool => `<li>${escapeHtml(tool)}</li>`).join('')}</ul>` : ''}
     </section>` : ''}
-    ${project.status || project.award || project.outcome || project.outcomeMedia?.length ? `<section class="outcome wrap"><h2>주요 성과</h2>
+    ${project.status || project.award || project.outcome || project.outcomeMedia?.length || project.outcomeLinks?.length ? `<section class="outcome wrap"><h2>주요 성과</h2>
       ${[project.award, project.status, project.outcome].filter(Boolean).map(item => `<p>${escapeHtml(item)}</p>`).join('')}
+      ${project.outcomeLinks?.length ? `<ul class="outcome-links" aria-label="관련 기사">
+        ${project.outcomeLinks.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a></li>`).join('')}
+      </ul>` : ''}
       ${renderStoryMedia(project.outcomeMedia)}</section>` : ''}
     ${project.playUrl ? `<a class="play" href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel || '게임 플레이')}</a>`
       : project.linkLabel ? `<p class="release-status wrap">${escapeHtml(project.linkLabel)}</p>` : ''}
