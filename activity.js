@@ -490,7 +490,13 @@ const activityProjects = [
     "video": "hamstory.mp4",
     "photos": [
       "hamstory-1",
-      "hamstory-2"
+      "hamstory-2",
+      "hamstory-screenshot-1",
+      "hamstory-screenshot-2",
+      "hamstory-screenshot-3",
+      "hamstory-screenshot-4",
+      "hamstory-screenshot-5",
+      "hamstory-screenshot-6"
     ]
   },
   {
