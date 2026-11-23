@@ -105,6 +105,20 @@ img, video {display:block; max-width:100%}
 .story-photos figure {margin:0}
 .story-photos video {aspect-ratio:780/439;background:#000}
 .story-photos figcaption {margin-top:.5rem;color:var(--muted)}
+.story-photos:has(> a[href="assets/bystander-process-player.gif"]) {
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.story-photos:has(> a[href="assets/bystander-process-player.gif"]) > * {
+  grid-column:span 2;
+}
+.story-photos:has(> a[href="assets/bystander-process-player.gif"]) > a[href$=".gif"] {
+  grid-column:span 1;
+  width:min(100%,7rem);
+  justify-self:center;
+}
+.story-photos:has(> a[href="assets/bystander-process-player.gif"]) > a[href$=".gif"] img {
+  image-rendering:pixelated;
+}
 .story.reverse img {order:-1}
 .chips {display:flex; flex-wrap:wrap; gap:.65rem; padding:0; list-style:none}
 .chips li {color:var(--bg); background:var(--accent,var(--green)); padding:.35em .7em; border-radius:40px; font-weight:750}
