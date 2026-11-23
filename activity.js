@@ -1149,6 +1149,48 @@ const activityProjects = [
         "눈사랑과 방관자가 포함된 결승전 진출작 목록",
         true
       ]
+    ],
+    "processMedia": [
+      [
+        "bystander-process-recording.mp4",
+        "방관자 개발 과정 영상",
+        false
+      ],
+      [
+        "bystander-process-unity.png",
+        "Unity에서 구성한 방관자 장면",
+        true
+      ],
+      [
+        "bystander-process-dialogue-ui.png",
+        "대화 UI 레이아웃 시안",
+        true
+      ],
+      [
+        "bystander-process-map.png",
+        "흑백 픽셀 그래픽 맵 구성",
+        true
+      ],
+      [
+        "bystander-process-player.gif",
+        "플레이어 캐릭터 애니메이션",
+        true
+      ],
+      [
+        "bystander-process-oldman.gif",
+        "노인 NPC 애니메이션",
+        true
+      ],
+      [
+        "bystander-process-lady.gif",
+        "여성 NPC 애니메이션",
+        true
+      ],
+      [
+        "bystander-process-wife.gif",
+        "아내 NPC 애니메이션",
+        true
+      ]
     ]
   },
   {
