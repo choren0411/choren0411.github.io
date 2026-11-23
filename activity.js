@@ -560,7 +560,7 @@ const activityProjects = [
       ]
     ],
     "ai": false,
-    "cover": "hamstory-1",
+    "cover": "hamstory-library-header.png",
     "video": "hamstory.mp4",
     "photos": [
       "hamstory-1",
