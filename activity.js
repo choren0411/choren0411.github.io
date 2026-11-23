@@ -387,6 +387,16 @@ const activityProjects = [
     ],
     "processMedia": [
       [
+        "stickerbook-process-tumblbug.png",
+        "텀블벅 펀딩 결과 화면. 목표 대비 286% 달성",
+        true
+      ],
+      [
+        "stickerbook-process-steam.png",
+        "햄스터의 스티커북 Steam 상점 페이지",
+        true
+      ],
+      [
         "stickerbook-process-1.png",
         "햄스터의 스티커북 상점 스크린샷 1"
       ],
@@ -433,6 +443,23 @@ const activityProjects = [
       [
         "stickerbook-process-figma.webm",
         "Figma 화면"
+      ]
+    ],
+    "process": [
+      [
+        null,
+        null,
+        "텀블벅 펀딩 목표의 286%를 달성하며 프로젝트를 마무리했습니다. 이후 Steam에서 기본 앱을 무료로 출시하고, 추가 콘텐츠를 DLC 패키지로 구성해 수익화하는 전략을 적용했습니다."
+      ],
+      [
+        null,
+        null,
+        "출시 이후에는 시즌 이벤트를 꾸준히 운영했습니다. 10월 핼러윈 이벤트를 통해 이용자 280명 이상이 유입됐습니다."
+      ],
+      [
+        null,
+        null,
+        "서울 코믹월드에서 부스를 운영하는 등 자체 마케팅을 통해 국내외 이용자층을 넓히고자 했습니다."
       ]
     ]
   },
