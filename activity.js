@@ -65,6 +65,24 @@ const activityProjects = [
       "colla-cover",
       "colla-game",
       "colla-stage"
+    ],
+    "processPhotos": [
+      [
+        "colla-zoo-process-1.png",
+        "Unity Game Jam 개발 앱의 채팅 화면"
+      ],
+      [
+        "colla-zoo-process-2.png",
+        "Unity Game Jam 개발 앱의 사용량 화면"
+      ],
+      [
+        "colla-zoo-process-3.png",
+        "Colla-ZOO의 AI 아트 제작 자료"
+      ],
+      [
+        "colla-zoo-process-4.png",
+        "Colla-ZOO의 AI 개발 흐름"
+      ]
     ]
   },
   {
@@ -211,6 +229,16 @@ const activityProjects = [
     "photos": [
       "hai-12",
       "hai-25"
+    ],
+    "processPhotos": [
+      [
+        "hai-process-1.png",
+        "HAI의 분야별 AI 도구 활용 자료"
+      ],
+      [
+        "hai-process-2.png",
+        "HAI의 LLM 페르소나 연동 자료"
+      ]
     ]
   },
   {
@@ -239,6 +267,12 @@ const activityProjects = [
     "photos": [
       "play-your-way-1",
       "play-your-way-2"
+    ],
+    "processPhotos": [
+      [
+        "play-your-way-process-1.png",
+        "PLAY it YOUR WAY 화면 디자인 시안"
+      ]
     ]
   },
   {
@@ -473,6 +507,12 @@ const activityProjects = [
     "photos": [
       "suncheon-full-1",
       "suncheon-full-2"
+    ],
+    "processPhotos": [
+      [
+        "suncheon-process-1.png",
+        "천만해요, 순천만의 아트·개발 AI 활용 자료"
+      ]
     ]
   },
   {
@@ -908,7 +948,21 @@ const activityProjects = [
         "pink"
       ]
     ],
-    "ai": false
+    "ai": false,
+    "processPhotos": [
+      [
+        "unbelibubble-process-1.png",
+        "Unbubblibubble 타이틀 화면 시안"
+      ],
+      [
+        "unbelibubble-process-2.png",
+        "Unbubblibubble 시작 버튼 시안"
+      ],
+      [
+        "unbelibubble-process-3.png",
+        "Unbubblibubble 만화 연출 시안"
+      ]
+    ]
   }
 ];
 

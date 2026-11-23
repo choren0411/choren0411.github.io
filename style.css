@@ -99,6 +99,8 @@ img, video {display:block; max-width:100%}
 .tools-heading {font-size:1rem}
 .release-status {margin-block:2rem;text-align:center;color:var(--muted)}
 .story-row img {width:100%}
+.story-photos {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 23rem),1fr));gap:clamp(1rem,3vw,2rem);align-items:start}
+.story-photos img {display:block;width:100%;height:auto;max-width:54rem}
 .story.reverse img {order:-1}
 .chips {display:flex; flex-wrap:wrap; gap:.65rem; padding:0; list-style:none}
 .chips li {color:var(--bg); background:var(--accent,var(--green)); padding:.35em .7em; border-radius:40px; font-weight:750}

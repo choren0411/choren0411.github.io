@@ -83,12 +83,15 @@ function renderMain() {
   renderPreview();
 }
 
-function story(title, rows, reverse = false) {
-  if (!rows?.length) return '';
+function story(title, rows = [], reverse = false, photos = []) {
+  if (!rows.length && !photos.length) return '';
+  const gallery = photos.length ? `<div class="story-photos">
+    ${photos.map(([filename, alt]) => `<img src="assets/${escapeHtml(filename)}" alt="${escapeHtml(alt)}" loading="lazy">`).join('')}
+  </div>` : '';
   return `<section class="story wrap ${reverse ? 'reverse' : ''}"><h2>${title}</h2>
     ${rows.map(([image, alt, description]) => `<div class="story-row${image ? '' : ' story-text'}">
       <p>${escapeHtml(description)}</p>${image ? `<img src="${imagePath(image)}" alt="${escapeHtml(alt)}" loading="lazy">` : ''}
-    </div>`).join('')}</section>`;
+    </div>`).join('')}${gallery}</section>`;
 }
 
 function renderProject(project) {
@@ -111,7 +114,7 @@ function renderProject(project) {
       ${project.headline ? `<h3>${escapeHtml(project.headline)}</h3>` : ''}
       ${project.description ? `<p>${escapeHtml(project.description)}</p>` : ''}</section>` : ''}
     ${story('기획 의도', project.intent)}
-    ${story('개발 과정', project.process, true)}
+    ${story('개발 과정', project.process, true, project.processPhotos)}
     ${project.contributions || project.tools?.length || project.role ? `<section class="contribution wrap"><h2>기여도</h2>
       ${project.role ? `<p>${escapeHtml(project.role)}</p>` : ''}
       ${(project.contributions ?? []).map(([label, amount, color]) => `<div class="bar ${color}">
