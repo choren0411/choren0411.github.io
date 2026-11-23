@@ -1157,7 +1157,7 @@ const activityProjects = [
       ]
     ],
     "ai": false,
-    "cover": "snow-love-1",
+    "cover": "snow-love-title.png",
     "photos": [
       "snow-love-1",
       "snow-love-2"
@@ -1166,6 +1166,38 @@ const activityProjects = [
       [
         "mandle-finalists.png",
         "눈사랑과 방관자가 포함된 결승전 진출작 목록",
+        true
+      ]
+    ],
+    "processMedia": [
+      [
+        "snow-love-kid-1.png",
+        "아이 캐릭터 1 스프라이트 시트",
+        true
+      ],
+      [
+        "snow-love-kid-2.png",
+        "아이 캐릭터 2 스프라이트 시트",
+        true
+      ],
+      [
+        "snow-love-mom.png",
+        "엄마 캐릭터 스프라이트 시트",
+        true
+      ],
+      [
+        "snow-love-oldman.png",
+        "노인 캐릭터 스프라이트 시트",
+        true
+      ],
+      [
+        "snow-love-cutscene.png",
+        "엄마와 아이가 등장하는 컷신",
+        true
+      ],
+      [
+        "snow-love-ending.png",
+        "눈사람을 만드는 엔딩 컷신",
         true
       ]
     ]
