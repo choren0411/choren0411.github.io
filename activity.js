@@ -899,6 +899,7 @@ const activityProjects = [
   },
   {
     "id": "unbelibubble",
+    "cover": "unbelibubble-process-1.png",
     "title": "Unbubblibubble",
     "event": "2025 젬파이 × in Seoul 게임잼",
     "headline": "위험한 주방에서 비눗방울을 지켜 주세요!",

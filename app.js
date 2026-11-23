@@ -15,7 +15,7 @@ let galleryTimer;
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]
 );
-const imagePath = name => 'assets/' + name + '.jpg';
+const imagePath = name => 'assets/' + (name.endsWith('.png') ? name : name + '.jpg');
 const projectLink = project => '#project/' + project.id;
 const education = `<div class="education"><span class="quiet">학력</span>
   <p>이화여자대학교 조소 전공 / 기업가정신 복수전공 <small>2021.03–2026 (졸업유예)</small></p>
