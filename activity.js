@@ -1200,23 +1200,23 @@ const activityProjects = [
     ],
     "processMedia": [
       [
-        "snow-love-kid-1.png",
-        "아이 캐릭터 1 스프라이트 시트",
+        "snow-love-character-dog.gif",
+        "강아지 캐릭터 애니메이션",
         true
       ],
       [
-        "snow-love-kid-2.png",
-        "아이 캐릭터 2 스프라이트 시트",
+        "snow-love-character-kid-2.gif",
+        "갈색 모자를 쓴 아이 캐릭터 애니메이션",
         true
       ],
       [
-        "snow-love-mom.png",
-        "엄마 캐릭터 스프라이트 시트",
+        "snow-love-character-kid-1.gif",
+        "빨간 모자를 쓴 아이 캐릭터 애니메이션",
         true
       ],
       [
-        "snow-love-oldman.png",
-        "노인 캐릭터 스프라이트 시트",
+        "snow-love-character-girl.gif",
+        "보라색 목도리를 두른 아이 캐릭터 애니메이션",
         true
       ],
       [
