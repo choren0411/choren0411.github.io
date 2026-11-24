@@ -340,6 +340,44 @@ const activityProjects = [
     ]
   },
   {
+    "id": "omok-heroes",
+    "title": "오목 히어로즈",
+    "event": "NHN AI 해커톤 사전과제",
+    "headline": "오목알을 골라 배치하고, 자동 전투로 다섯 목을 완성하세요.",
+    "description": "오목과 오토배틀을 결합한 턴제 전략 게임입니다. 역할과 능력이 다른 오목알을 골라 배치하면 제자리에서 자동으로 전투가 벌어집니다. 상대 진형을 무너뜨리며 먼저 다섯 목을 완성하는 것이 목표입니다.",
+    "facts": [
+      ["팀", "RatsGO"],
+      ["개발 환경", "Unity 6"],
+      ["플랫폼", "PC Web"]
+    ],
+    "intent": [
+      [null, null, "오토배틀의 유닛 조합과 배치 전략을 처음 접하는 플레이어도 쉽게 시작할 수 있도록, 오목의 익숙한 승리 조건인 ‘다섯 개 잇기’를 핵심 목표로 삼았습니다."]
+    ],
+    "aiRoles": [
+      "오목과 오토배틀을 결합한 플레이 규칙, 구현 요구사항과 검증 기준 설정",
+      "Codex로 기능 구현과 수정, ChatGPT·Codex로 아트 에셋 생성"
+    ],
+    "process": [
+      [null, null, "기획서를 바탕으로 기본 턴과 배치를 먼저 구현하고, 유닛 선택과 자동 전투를 연결했습니다. 상대 AI는 오목의 승부 위협과 자동 전투 결과를 함께 평가하는 규칙 기반으로 구현했습니다."],
+      [null, null, "Codex로 코드와 에셋을 구현한 뒤 C# 빌드, Unity 컴파일, Edit Mode·Play Mode 테스트로 동작을 점검했습니다."]
+    ],
+    "processMedia": [
+      ["omok-ai-process-1.png", "RatsGO AI 기술 활용 문서 1쪽", true],
+      ["omok-ai-process-2.png", "RatsGO AI 기술 활용 문서 2쪽", true],
+      ["omok-ai-process-3.png", "RatsGO AI 기술 활용 문서 3쪽", true],
+      ["omok-ai-process-4.png", "RatsGO AI 기술 활용 문서 4쪽", true],
+      ["omok-ai-process-5.png", "RatsGO AI 기술 활용 문서 5쪽", true],
+      ["omok-ai-process-6.png", "RatsGO AI 기술 활용 문서 6쪽", true]
+    ],
+    "tools": ["Unity", "Codex", "ChatGPT"],
+    "ai": true,
+    "cover": "omok-cover",
+    "video": "omok-heroes.mp4",
+    "photos": ["omok-cover", "omok-gameplay"],
+    "playUrl": "https://yohan.dotoridoguldan.com/NAN2026-Project/",
+    "linkLabel": "게임 플레이"
+  },
+  {
     "id": "play-your-way",
     "title": "PLAY it YOUR WAY",
     "event": "PlayStation 협업 프로젝트",
