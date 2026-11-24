@@ -1,6 +1,24 @@
 // 프로젝트와 연도별 활동 타임라인.
 const activityProjects = [
   {
+    "id": "community-mentor",
+    "title": "우리동네 플레이어",
+    "event": "스마일게이트 희망스튜디오",
+    "description": "스마일게이트 희망스튜디오 〈우리동네 플레이어〉에서 청년 창작 멘토로 활동했습니다.",
+    "facts": [
+      [
+        "연도",
+        "2026"
+      ],
+      [
+        "역할",
+        "청년 창작 멘토"
+      ]
+    ],
+    "role": "청년 창작 멘토",
+    "ai": false
+  },
+  {
     "id": "colla-zoo",
     "title": "Colla-ZOO",
     "event": "Unity AI Game Jam",
@@ -40,7 +58,7 @@ const activityProjects = [
         "Codex로 게임잼 전용 개발 앱인 Unity Game Jam을 제작하고, OpenAI Responses API를 Unity 에디터에 연동했습니다."
       ]
     ],
-    "role": "아티스트로 참여해 게임의 핵심 콘셉트와 레벨 구조를 제안했습니다. 인게임 배경 리소스를 중점적으로 제작하고, 인트로와 아웃트로 컷신의 스토리보드를 설계했습니다.",
+    "role": "6종 동물의 머리·몸통·다리를 조합하는 핵심 콘셉트와 216가지 조합·7개 방의 레벨 구조를 제안하고, 인게임 배경 제작과 인트로·아웃트로 컷신의 스토리보드를 맡았습니다.",
     "tools": [
       "Unity",
       "OpenAI Platform",
@@ -82,26 +100,6 @@ const activityProjects = [
       [
         "colla-zoo-process-4.png",
         "Colla-ZOO의 AI 개발 흐름"
-      ],
-      [
-        "colla-zoo-poster.png",
-        "Colla-ZOO 한국어 전시 포스터",
-        true
-      ],
-      [
-        "colla-zoo-booth-wide.jpg",
-        "지스타 Unity 부스 전경과 Colla-ZOO 시연 화면",
-        true
-      ],
-      [
-        "colla-zoo-booth-demo.jpg",
-        "Unity AI Game Jam CLI Special Prize 안내판과 Colla-ZOO 시연대",
-        true
-      ],
-      [
-        "colla-zoo-booth-side.jpg",
-        "Colla-ZOO 시연대와 Unity CLI 전시 안내",
-        true
       ]
     ],
     "outcomeLinks": [
@@ -118,7 +116,35 @@ const activityProjects = [
         "https://www.inven.co.kr/webzine/news/?news=323546"
       ]
     ],
-    "playUrl": "https://play.unity.com/ko/games/753d3bc6-297f-460f-8036-b94006576502/colla-zoo"
+    "playUrl": "https://play.unity.com/ko/games/753d3bc6-297f-460f-8036-b94006576502/colla-zoo",
+    "aiRoles": [
+      "216가지 동물 조합과 7개 방의 레벨 구조 제안",
+      "Codex를 활용한 Unity 게임잼 전용 개발 앱 구현"
+    ],
+    "intentMedia": [
+      [
+        "colla-zoo-poster.png",
+        "Colla-ZOO 한국어 전시 포스터",
+        true
+      ]
+    ],
+    "outcomeMedia": [
+      [
+        "colla-zoo-booth-wide.jpg",
+        "지스타 Unity 부스 전경과 Colla-ZOO 시연 화면",
+        true
+      ],
+      [
+        "colla-zoo-booth-demo.jpg",
+        "Unity AI Game Jam CLI Special Prize 안내판과 Colla-ZOO 시연대",
+        true
+      ],
+      [
+        "colla-zoo-booth-side.jpg",
+        "Colla-ZOO 시연대와 Unity CLI 전시 안내",
+        true
+      ]
+    ]
   },
   {
     "id": "nara",
@@ -171,7 +197,7 @@ const activityProjects = [
         "Figma로 화면을 설계한 뒤 PC·모바일 화면과 결과 등급을 개선하고 음악·효과음 시안을 비교했습니다."
       ]
     ],
-    "role": "화면 레이아웃과 UI/UX를 디자인하고, 인게임 리소스 제작과 영상 편집을 맡았습니다. 추가 시스템도 기획하고 문서를 정리했습니다.",
+    "role": "추가 게임 시스템을 기획하고 기획 문서를 정리했습니다. 화면 레이아웃과 UI/UX를 설계하고 인게임 리소스 제작과 영상 편집을 맡았습니다.",
     "tools": [
       "Figma",
       "Codex",
@@ -196,6 +222,10 @@ const activityProjects = [
       "nara",
       "nara-game",
       "nara-result"
+    ],
+    "aiRoles": [
+      "추가 게임 시스템 기획과 가격 추정 퀴즈의 UI/UX 설계",
+      "Codex를 활용한 초기 웹 프로토타입 구현"
     ]
   },
   {
@@ -239,7 +269,7 @@ const activityProjects = [
         "LLM을 연동해 캐릭터의 페르소나에 맞춰 자동으로 응답하는 기능을 구현했습니다."
       ]
     ],
-    "role": "인게임 리소스를 제작하고 UI/UX를 구성했습니다. 등장인물의 페르소나를 설계하고 LLM에 연동했습니다.",
+    "role": "사람이 AI처럼 응답하는 콘셉트에 맞춰 캐릭터의 페르소나를 설계하고 LLM에 연동했습니다. UI/UX 구성과 인게임 리소스 제작을 맡았습니다.",
     "tools": [
       "Claude Code",
       "Codex",
@@ -263,7 +293,16 @@ const activityProjects = [
     "video": "hai.mp4",
     "photos": [
       "hai-12",
-      "hai-25"
+      "hai-25",
+      "hai-slide-1.png",
+      "hai-slide-2.png",
+      "hai-slide-3.png",
+      "hai-slide-4.png",
+      "hai-slide-5.png",
+      "hai-slide-6.png",
+      "hai-slide-7.png",
+      "hai-slide-8.png",
+      "hai-slide-9.png"
     ],
     "processMedia": [
       [
@@ -273,6 +312,14 @@ const activityProjects = [
       [
         "hai-process-2.png",
         "HAI의 LLM 페르소나 연동 자료"
+      ],
+      [
+        "hai-motionvid.mp4",
+        "Motion.vid로 제작한 영상"
+      ],
+      [
+        "hai-intro-video.mp4",
+        "HAI 인트로 영상"
       ]
     ],
     "outcomeMedia": [
@@ -286,6 +333,10 @@ const activityProjects = [
         "NHN 게임 × AI 해커톤 발표 현장",
         true
       ]
+    ],
+    "aiRoles": [
+      "캐릭터별 페르소나 설계와 기능별 구현 계획 검토",
+      "LLM을 활용한 페르소나별 대사 생성"
     ]
   },
   {
@@ -408,7 +459,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2026.04–05"
+        "2026.03–08"
       ],
       [
         "인원",
@@ -665,7 +716,7 @@ const activityProjects = [
         "GameAIfy로 수채화 시안을 생성하고 Procreate에서 후처리해 아트 스타일을 맞췄습니다."
       ]
     ],
-    "role": "인게임 리소스를 제작하고 아트 디렉팅을 맡았습니다. 게임 내 도감 리소스와 UI/UX도 기획했습니다.",
+    "role": "순천만 생물 도감의 구성과 UI/UX를 기획했습니다. 아트 디렉팅을 맡고 인게임 리소스를 제작했습니다.",
     "tools": [
       "GameAIfy",
       "Procreate"
@@ -683,9 +734,26 @@ const activityProjects = [
       ]
     ],
     "ai": true,
-    "cover": "suncheon-full-1",
+    "cover": "suncheon-slide-01",
     "video": "suncheon-full.mp4",
+    "slideIntervalMs": 1000,
     "photos": [
+      "suncheon-slide-01",
+      "suncheon-slide-02",
+      "suncheon-slide-03",
+      "suncheon-slide-04",
+      "suncheon-slide-05",
+      "suncheon-slide-06",
+      "suncheon-slide-07",
+      "suncheon-slide-08",
+      "suncheon-slide-09",
+      "suncheon-slide-10",
+      "suncheon-slide-11",
+      "suncheon-slide-12",
+      "suncheon-slide-13",
+      "suncheon-slide-14",
+      "suncheon-slide-15",
+      "suncheon-slide-16",
       "suncheon-full-1",
       "suncheon-full-2"
     ],
@@ -694,6 +762,10 @@ const activityProjects = [
         "suncheon-process-1.png",
         "천만해요, 순천만의 아트·개발 AI 활용 자료"
       ]
+    ],
+    "aiRoles": [
+      "생물 도감 구성과 UI/UX 기획, 수채화 아트 방향 결정",
+      "GameAIfy를 활용한 수채화 시안 생성"
     ]
   },
   {
@@ -799,7 +871,7 @@ const activityProjects = [
         "GameAIfy로 종이 질감의 그래픽을 실험했습니다. 시야 제한과 플레이어를 응시하는 오브젝트로 긴장감을 높였습니다."
       ]
     ],
-    "role": "GameAIfy로 게임 내 아트 에셋을 모두 제작한 뒤 보정해 적용했습니다. 레벨의 장면과 공간을 설계하고 전체 플레이 흐름을 기획했습니다.",
+    "role": "레벨별 장면과 공간을 설계하고 전체 플레이 흐름을 기획했습니다. GameAIfy로 제작한 아트 에셋을 보정해 게임에 적용했습니다.",
     "tools": [
       "GameAIfy"
     ],
@@ -887,6 +959,10 @@ const activityProjects = [
         "GameAIfy 아트 에셋 제작 화면 10",
         true
       ]
+    ],
+    "aiRoles": [
+      "레벨 공간과 플레이 흐름 설계",
+      "GameAIfy를 활용한 종이 질감 아트 에셋 생성"
     ]
   },
   {
@@ -929,7 +1005,7 @@ const activityProjects = [
         "GameAIfy로 아트 에셋을 제작한 뒤 보정해 적용했습니다."
       ]
     ],
-    "role": "전체 아트 에셋을 제작하고 아트 콘셉트와 UI/UX를 기획했습니다.",
+    "role": "쌍륙의 규칙을 쉽게 접할 수 있도록 아트 콘셉트와 UI/UX를 기획했습니다. 전체 아트 에셋을 만들고 보정했습니다.",
     "tools": [
       "GameAIfy",
       "Figma",
@@ -981,6 +1057,10 @@ const activityProjects = [
         "개인정보를 가린 쌍륙 공모전 신청서와 AI 활용 내역",
         true
       ]
+    ],
+    "aiRoles": [
+      "쌍륙의 진입 장벽을 낮추는 아트 콘셉트와 UI/UX 기획",
+      "GameAIfy를 활용한 아트 에셋 생성"
     ]
   },
   {

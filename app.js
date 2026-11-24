@@ -7,10 +7,21 @@ const colors = ['blue', 'yellow', 'pink'];
 const categories = [projects, featuredAwards, projects.filter(project => project.ai)];
 const assetRevision = '?v=4';
 const metricIcons = ['progect.png', 'win.png', 'ai.png'];
-let category = 2;
-let projectCategory = 0;
+const posterStills = [
+  'horrops.jpg', 'horrops-full-1.jpg', 'horrops-full-2.jpg',
+  'colla-game.jpg', 'colla-stage.jpg', 'monstone-1.jpg',
+  'suncheon-full-1.jpg', 'suncheon-full-2.jpg', 'hai-12.jpg', 'hai-25.jpg',
+  'memories-1.jpg', 'ssangryuk-1.jpg', 'nara-game.jpg'
+];
+const posterAnimations = ['monstone-intent.gif', 'bystander-process-player.gif', 'snow-love-character-girl.gif'];
+const posterTileCount = 12;
+const posterAnimationSlots = [2, 9];
+const aiRoleLabels = ['내가 판단한 것', 'AI에 맡긴 것'];
+const aiProjectCategory = labels.indexOf('AI 프로젝트');
+let projectCategory = aiProjectCategory;
 let year = '2026';
 let galleryTimer;
+let posterTimer;
 
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]
@@ -41,50 +52,145 @@ function metrics(selected) {
     </button>`).join('')}</div>`;
 }
 
-function renderPreview() {
-  const preview = document.querySelector('#preview');
-  preview.className = 'preview wrap ' + colors[category];
-  preview.innerHTML = `${metrics(category)}
-    <div class="cards">${cards(categories[category])}</div>
-    <a class="all-projects" href="#project">프로젝트 모두 보기</a>`;
+function animateProjectSummary() {
+  const summary = view.querySelector('.project-summary-copy');
+  const walker = document.createTreeWalker(summary, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  const letters = [];
+  for (const node of textNodes) {
+    if (!node.textContent.trim()) continue;
+    const fragment = document.createDocumentFragment();
+    for (const character of node.textContent) {
+      if (/\s/.test(character)) {
+        fragment.append(character);
+        continue;
+      }
+      const letter = document.createElement('span');
+      letter.className = 'summary-letter-pending';
+      letter.textContent = character;
+      fragment.append(letter);
+      letters.push(letter);
+    }
+    node.replaceWith(fragment);
+  }
+
+  let revealed = 0;
+  const start = performance.now();
+  function reveal(now) {
+    if (!summary.isConnected) return;
+    const count = reducedMotion.matches ? letters.length : Math.min(letters.length, 1 + Math.floor((now - start) / 23));
+    while (revealed < count) letters[revealed++].classList.remove('summary-letter-pending');
+    if (revealed < letters.length) requestAnimationFrame(reveal);
+  }
+  requestAnimationFrame(reveal);
 }
 
-function renderProjectIndex() {
+function renderProjectIndex(animate = false) {
+  const completedProjects = projects.filter(project => project.id !== 'community-mentor').length;
   view.innerHTML = `<section class="project-index">
     <div class="wrap project-summary">
-      <h1><span class="pink">[${projects.length}]건</span>의 프로젝트를 완주했습니다.</h1>
+      <div class="project-summary-copy">
+        <h1><span class="summary-line"><span class="pink">5 번</span>의 게임잼,</span>
+          <span class="summary-line"><span class="yellow">2 번</span>의 Steam·콘솔 출시,</span>
+          <span class="summary-line"><span class="blue">${completedProjects} 건</span>의 프로젝트를 완주했습니다.</span></h1>
+        <p>먼저 판단하고, AI와 함께 끝까지 완성하는 기획자입니다.</p>
+      </div>
       ${metrics(projectCategory)}
     </div>
     <div class="project-gallery">
       <div class="gallery-glow" aria-hidden="true"></div>
       <div class="wrap ${colors[projectCategory]}">
         <p class="gallery-prompt">= 궁금한 활동은 클릭해주세요 =</p>
-        <div class="cards">${cards(categories[projectCategory].filter(project => project.id !== 'play-your-way'))}</div>
+        <div class="cards">${cards(categories[projectCategory].filter(project =>
+          !['play-your-way', 'community-mentor'].includes(project.id)))}</div>
       </div>
     </div>
   </section>`;
+  if (animate && !reducedMotion.matches) animateProjectSummary();
+}
+
+function shuffled(items) {
+  const remaining = [...items];
+  return items.map(() => remaining.splice(Math.floor(Math.random() * remaining.length), 1)[0]);
+}
+
+function renderWorkProcess() {
+  const steps = [
+    ['설계', 'yellow', '한 줄로 정의하고, 실행할 단위로 쪼갭니다.', 'colla-zoo-process-1.png', 'colla-zoo'],
+    ['판단', 'blue', 'AI가 만든 여러 안 중에서, 방향은 제가 정합니다.', 'suncheon-process-1.png', 'suncheon'],
+    ['구현', 'pink', '구현은 AI 에이전트에게, 반복 작업은 툴로', 'nara-prototype.jpg', 'nara', 'Figma 화면을 기준으로 Claude Code·Codex가 구현하고, 반복 작업은 전용 툴로 만들어 에이전트가 쓰게 합니다.'],
+    ['검증', 'green', '동작은 자동 테스트로, 재미는 직접 플레이로', 'hai-process-2.png', 'hai']
+  ];
+  return `<section class="work-process" aria-labelledby="work-process-title">
+    <div class="wrap">
+      <h2 id="work-process-title">; How 🙋 Work With 🤖</h2>
+      <ol class="work-process-flow" aria-label="작업 순서">
+        ${steps.map(([title, color]) => `<li class="${color}">${title}</li>`).join('')}
+      </ol>
+      <div class="work-process-steps">
+        ${steps.map(([title, color, description, image, id, detail]) => {
+          const project = projects.find(item => item.id === id);
+          return `<article class="work-step">
+            <img src="assets/${image}" alt="${escapeHtml(project.title)} 작업 화면" loading="lazy">
+            <div class="work-step-copy">
+              <h3 class="${color}">${title}</h3>
+              <p>${description}</p>
+              ${detail ? `<p class="work-step-detail">${detail}</p>` : ''}
+              <a href="${projectLink(project)}">${escapeHtml(id === 'hai' ? 'HAI' : project.title)} <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>`;
+        }).join('')}
+      </div>
+      <a class="work-process-link" href="#project">AI 프로젝트 바로보기 <span aria-hidden="true">↓</span></a>
+    </div>
+  </section><div class="work-process-scroll-end" aria-hidden="true"></div>`;
 }
 
 function renderMain() {
-  view.innerHTML = `<section class="hero wrap">
+  const stills = shuffled(posterStills);
+  const animations = shuffled(posterAnimations);
+  const posterMedia = stills.slice(0, posterTileCount);
+  if (!reducedMotion.matches) {
+    posterAnimationSlots.forEach((slot, index) => { posterMedia[slot] = animations[index]; });
+  }
+  view.innerHTML = `<section class="hero">
+    <div class="poster-media" aria-hidden="true">
+      ${posterMedia.map(filename => `<div><img src="assets/${filename}" alt=""></div>`).join('')}
+    </div>
     <div id="hero-default" class="hero-content">
       <button type="button" class="name-trigger" data-hero aria-expanded="false" aria-controls="hero-profile">KIM JIMIN</button>
       <p class="hero-korean">기획, 개발, 아트를 연결하는–</p>
-      <h1>CREATIVE DESIGNER</h1>
-      <p class="hero-description">[재미]를 최우선으로 하는 게임을 고민합니다.</p>
+      <h1>AI GAME DESIGNER</h1>
+      <p class="hero-description">먼저 판단하고, AI와 함께 끝까지 완성하는 기획자입니다.</p>
     </div>
     <div id="hero-profile" class="hero-content" hidden>
       <div class="contacts">${phone}${email}${github}</div>
       <button type="button" class="name-trigger expanded-name" data-hero aria-expanded="true" aria-controls="hero-profile">KIM JIMIN</button>
       ${education}
     </div>
-    <button class="preview-jump" type="button" data-preview><span aria-hidden="true">↓</span>Preview</button>
-  </section><section id="preview" aria-label="프로젝트 미리보기"></section>`;
-  renderPreview();
+  </section>${renderWorkProcess()}`;
+  if (!reducedMotion.matches) {
+    const tiles = [...view.querySelectorAll('.poster-media img')];
+    posterTimer = setInterval(() => {
+      if (reducedMotion.matches) {
+        tiles.forEach((tile, index) => { tile.src = 'assets/' + stills[index]; });
+        clearInterval(posterTimer);
+        return;
+      }
+      const index = Math.floor(Math.random() * tiles.length);
+      const pool = posterAnimationSlots.includes(index) ? animations : stills;
+      const candidates = pool.filter(filename => !posterMedia.includes(filename));
+      const filename = candidates[Math.floor(Math.random() * candidates.length)];
+      posterMedia[index] = filename;
+      tiles[index].src = 'assets/' + filename;
+    }, 1900);
+  }
 }
 
-function renderStoryMedia(media = []) {
-  return media.length ? `<div class="story-photos">
+function renderStoryMedia(media = [], layout = '') {
+  return media.length ? `<div class="story-photos ${layout}">
     ${media.map(([filename, label, fullSize]) => {
       const url = `assets/${escapeHtml(filename)}`;
       const title = escapeHtml(label);
@@ -97,12 +203,15 @@ function renderStoryMedia(media = []) {
   </div>` : '';
 }
 
-function story(title, rows = [], reverse = false, media = []) {
-  if (!rows.length && !media.length) return '';
+function story(title, rows = [], reverse = false, media = [], aiRoles = []) {
+  if (!rows.length && !media.length && !aiRoles.length) return '';
   return `<section class="story wrap ${reverse ? 'reverse' : ''}"><h2>${title}</h2>
     ${rows.map(([image, alt, description]) => `<div class="story-row${image ? '' : ' story-text'}">
       <p>${escapeHtml(description)}</p>${image ? `<img src="${imagePath(image)}" alt="${escapeHtml(alt)}" loading="lazy">` : ''}
-    </div>`).join('')}${renderStoryMedia(media)}</section>`;
+    </div>`).join('')}${renderStoryMedia(media)}
+    ${aiRoles.length ? `<dl class="ai-roles">${aiRoles.map((description, index) =>
+      `<div><dt>${aiRoleLabels[index]}</dt><dd>${escapeHtml(description)}</dd></div>`).join('')}</dl>` : ''}
+  </section>`;
 }
 
 function renderProject(project) {
@@ -124,7 +233,7 @@ function renderProject(project) {
     ${project.headline || project.description ? `<section class="game-description wrap"><h2>프로젝트 소개</h2>
       ${project.headline ? `<h3>${escapeHtml(project.headline)}</h3>` : ''}
       ${project.description ? `<p>${escapeHtml(project.description)}</p>` : ''}</section>` : ''}
-    ${story('기획 의도', project.intent)}
+    ${story('기획 의도', project.intent, false, project.intentMedia, project.aiRoles)}
     ${story('개발 과정', project.process, true, project.processMedia)}
     ${project.contributions || project.tools?.length || project.role ? `<section class="contribution wrap"><h2>기여도</h2>
       ${project.role ? `<p>${escapeHtml(project.role)}</p>` : ''}
@@ -138,7 +247,7 @@ function renderProject(project) {
       ${project.outcomeLinks?.length ? `<ul class="outcome-links" aria-label="관련 기사">
         ${project.outcomeLinks.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a></li>`).join('')}
       </ul>` : ''}
-      ${renderStoryMedia(project.outcomeMedia)}</section>` : ''}
+      ${renderStoryMedia(project.outcomeMedia, project.id === 'colla-zoo' ? 'booth-photos' : '')}</section>` : ''}
     ${project.playUrl ? `<a class="play" href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel || '게임 플레이')}</a>`
       : project.linkLabel ? `<p class="release-status wrap">${escapeHtml(project.linkLabel)}</p>` : ''}
     <nav class="project-next" aria-label="다른 프로젝트"${next.cover ? ` style="--cover:url('${imagePath(next.cover)}')"` : ''}>
@@ -187,7 +296,9 @@ function setupGallery(project) {
     toggle.textContent = showingVideo ? '사진 보기' : paused ? '슬라이드 재생' : '슬라이드 일시정지';
     gallery.querySelectorAll('[data-step]').forEach(button => { button.hidden = !multiplePhotos; });
     toggle.hidden = !showingVideo && !multiplePhotos;
-    if (!showingVideo && !paused && multiplePhotos) galleryTimer = setInterval(() => advance(1), 4200);
+    if (!showingVideo && !paused && multiplePhotos) {
+      galleryTimer = setInterval(() => advance(1), project.slideIntervalMs ?? 4200);
+    }
   }
 
   function advance(step) {
@@ -260,6 +371,7 @@ function renderProfile() {
 
 function renderRoute(moveFocus = false) {
   clearInterval(galleryTimer);
+  clearInterval(posterTimer);
   const [route, id] = location.hash.slice(1).split('/');
   const page = ['project', 'profile'].includes(route) ? route : 'main';
   document.querySelectorAll('[data-page]').forEach(link => {
@@ -270,8 +382,11 @@ function renderRoute(moveFocus = false) {
   if (page === 'main') renderMain();
   else if (page === 'profile') renderProfile();
   else if (project) renderProject(project);
-  else renderProjectIndex();
-  document.title = project && page === 'project' ? project.title + ' | 김지민' : '김지민 | CREATIVE DESIGNER';
+  else {
+    projectCategory = aiProjectCategory;
+    renderProjectIndex(true);
+  }
+  document.title = project && page === 'project' ? project.title + ' | 김지민' : '김지민 | AI GAME DESIGNER';
   window.scrollTo(0, 0);
   if (moveFocus) view.focus({ preventScroll: true });
 }
@@ -286,19 +401,10 @@ view.addEventListener('click', event => {
     profile.hidden = !profile.hidden;
     (regular.hidden ? profile : regular).querySelector('button').focus({ preventScroll: true });
   }
-  if (button.hasAttribute('data-preview')) {
-    document.querySelector('#preview').scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth' });
-    document.querySelector('[data-category][aria-pressed="true"]').focus({ preventScroll: true });
-  }
   if (button.dataset.category !== undefined) {
     const selected = Number(button.dataset.category);
-    if (button.closest('.project-index')) {
-      projectCategory = selected;
-      renderProjectIndex();
-    } else {
-      category = selected;
-      renderPreview();
-    }
+    projectCategory = selected;
+    renderProjectIndex();
     document.querySelector(`[data-category="${selected}"]`).focus({ preventScroll: true });
   }
   if (button.dataset.year) {
@@ -349,5 +455,11 @@ function startIntro() {
 }
 
 addEventListener('hashchange', () => renderRoute(true));
+addEventListener('scroll', () => {
+  const end = view.querySelector('.work-process-scroll-end');
+  if (!site.hidden && end && end.getBoundingClientRect().top <= window.innerHeight - 56) {
+    location.hash = '#project';
+  }
+}, { passive: true });
 renderRoute();
 if (!location.hash || location.hash === '#main') startIntro();
