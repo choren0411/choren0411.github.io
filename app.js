@@ -482,9 +482,9 @@ function renderMainProfile() {
   const years = [...new Set(experience.map(item => item.year))].sort((a, b) => b - a);
   return `<section class="main-profile" aria-labelledby="main-profile-title">
     <div class="wrap">
-      <h2 id="main-profile-title">Profile</h2>
       <div class="main-profile-grid">
         <div class="main-profile-info">
+          <h2 id="main-profile-title">Profile</h2>
           <img src="${imagePath('portrait')}" alt="김지민 프로필 사진" width="409" height="475" loading="lazy">
           ${education}
           <div class="main-profile-card">
