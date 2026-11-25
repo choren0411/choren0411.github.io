@@ -42,6 +42,9 @@ img, video {display:block; max-width:100%}
 .top a[aria-current] {background:var(--bg); color:var(--green)}
 #intro {position:fixed; inset:0; background:var(--bg); padding:clamp(80px,15vw,300px) 6%; font-size:clamp(2rem,5.6vw,7rem); font-weight:800; letter-spacing:-.045em; line-height:1.48; overflow:auto; word-break:keep-all; overflow-wrap:anywhere}
 #typing > div {min-height:1.48em}
+#typing {color:#57ff00}
+#typing .blue {color:#39b9ff}
+#typing .pink {color:#f323ca}
 .hero {
   position:relative; isolation:isolate; overflow:hidden; text-align:center;
   min-height:100%; display:grid; align-items:center;
@@ -66,7 +69,6 @@ img, video {display:block; max-width:100%}
 .work-step:nth-child(even) .work-step-copy {align-items:end;text-align:right}
 .work-process-link {display:table;margin:clamp(42px,8vw,90px) auto 0;text-align:center;letter-spacing:.16em}
 .work-process-link span {display:block;font-size:2rem;letter-spacing:0}
-.work-process-scroll-end {height:96px}
 @media(max-width:540px) {
   .work-step {grid-template-columns:1fr}
   .work-step:nth-child(even) img {order:0}
@@ -150,11 +152,33 @@ img, video {display:block; max-width:100%}
 .facts dt {color:var(--muted);margin-bottom:.4rem}
 .story-row {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5%;margin-bottom:clamp(28px,5vw,85px)}
 .story-row p {margin:0}
+.story > .ai-roles {margin-top:0;margin-bottom:clamp(28px,5vw,85px)}
+.project-header-actions,.project-editor-actions {display:flex;align-items:center;flex-wrap:wrap;gap:.75rem 1rem}
+.project-header-actions {margin-bottom:1.5rem}
+.project-header-actions .back {margin:0}
+.project-header-actions button,.project-editor button,.detailed-contribution button {border:1px solid var(--line);background:var(--bg);padding:.5em .8em}
+.project-editor,.detailed-contribution {margin-top:1.5rem;padding:clamp(1rem,3vw,2rem);border:1px solid var(--line);background:#171b17}
+.project-editor p {margin:.65rem 0;color:#b9c6b9}
+.project-editor-fields {display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));margin-block:1.25rem}
+.project-editor-fields label {display:grid;gap:.4rem}
+.project-editor textarea {width:100%;resize:vertical;padding:.65rem;font:inherit;color:#eff7ef;background:var(--bg);border:1px solid var(--line)}
+.detailed-contribution summary {cursor:pointer;font-weight:750}
+.detailed-contribution ul {display:grid;gap:.5rem;margin-top:.8rem;padding-inline-start:1.45rem;list-style:square;color:#eff7ef}
+.detailed-contribution li::marker {color:#b9f46c}
+.detailed-contribution button {margin-top:1rem}
+.story-row p,.game-description p,.outcome p,.contribution p,.ai-roles dd {white-space:pre-line}
+.project-intro-heading {display:flex;flex-wrap:wrap;align-items:center;gap:.65rem clamp(.8rem,2.5vw,2.4rem);margin-bottom:clamp(24px,4vw,65px)}
+.project-intro-heading h2 {margin:0}
+.project-intro-heading a {display:inline-flex;align-items:center;gap:.45em;border:1px solid var(--line);padding:.5em .75em;font-weight:700}
+.project-intro-heading svg {width:1em;height:1em}
 .story-text {grid-template-columns:1fr}
 .contribution p+.bar,.tools-heading {margin-top:1.5rem}
 .tools-heading {font-size:1rem}
 .release-status {margin-block:2rem;text-align:center;color:var(--muted)}
-.story-row img {width:100%}
+.story-row-media img,.story-row-media video {width:100%}
+.story-row-media video {aspect-ratio:16/9;background:#000}
+.story-row-media a[href^="assets/bystander-process-"][href$=".gif"] {display:block;width:min(100%,7rem);margin-inline:auto}
+.story-row-media a[href^="assets/bystander-process-"][href$=".gif"] img {image-rendering:pixelated}
 .story-photos {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 23rem),1fr));gap:clamp(1rem,3vw,2rem);align-items:start}
 .story-photos img,.story-photos video {display:block;width:100%;height:auto;max-width:54rem}
 .outcome-links {margin-top:1.25rem;padding-inline-start:1.25rem;line-height:1.8}
@@ -163,21 +187,6 @@ img, video {display:block; max-width:100%}
 .story-photos figure {margin:0}
 .story-photos video {aspect-ratio:780/439;background:#000}
 .story-photos figcaption {margin-top:.5rem;color:var(--muted)}
-.story-photos:has(> a[href="assets/bystander-process-player.gif"]) {
-  grid-template-columns:repeat(4,minmax(0,1fr));
-}
-.story-photos:has(> a[href="assets/bystander-process-player.gif"]) > * {
-  grid-column:span 2;
-}
-.story-photos:has(> a[href="assets/bystander-process-player.gif"]) > a[href$=".gif"] {
-  grid-column:span 1;
-  width:min(100%,7rem);
-  justify-self:center;
-}
-.story-photos:has(> a[href="assets/bystander-process-player.gif"]) > a[href$=".gif"] img {
-  image-rendering:pixelated;
-}
-.story.reverse img {order:-1}
 .chips {display:flex; flex-wrap:wrap; gap:.65rem; padding:0; list-style:none}
 .chips li {color:var(--bg); background:var(--accent,var(--green)); padding:.35em .7em; border-radius:40px; font-weight:750}
 .bar {margin-top:1.2rem}

@@ -7,8 +7,8 @@ const activityProjects = [
     "description": "스마일게이트 희망스튜디오 〈우리동네 플레이어〉에서 청년 창작 멘토로 활동했습니다.",
     "facts": [
       [
-        "연도",
-        "2026"
+        "기간",
+        "2026 · 6주"
       ],
       [
         "역할",
@@ -20,6 +20,7 @@ const activityProjects = [
   },
   {
     "id": "colla-zoo",
+    "githubUrl": "https://github.com/yhaaan/Unity_AI_Game_Jam_07",
     "title": "Colla-ZOO",
     "event": "Unity AI Game Jam",
     "description": "6종의 동물이 머리·몸통·다리를 나눠 맡아 연구소를 탈출하는 협동 게임입니다. 216가지 조합에 따라 외형과 능력이 달라지며, 서로 다른 기믹이 있는 7개 방을 통과합니다.",
@@ -154,6 +155,7 @@ const activityProjects = [
     "description": "일상에서 자주 보는 물건의 가격을 맞히며 나라장터와 조달청의 역할을 알아가는 시뮬레이션 퀴즈입니다. 플레이어는 입찰 참가자가 되어 10라운드 동안 제한된 기회 안에 가격을 맞히고 전국 순위에 도전합니다.",
     "status": "결과 발표 대기 중",
     "playUrl": "https://k56754665.github.io/nara-price-quiz/",
+    "githubUrl": "https://github.com/k56754665/nara-price-quiz",
     "linkLabel": "게임 플레이",
     "facts": [
       [
@@ -230,6 +232,8 @@ const activityProjects = [
   },
   {
     "id": "hai",
+    "githubUrl": "https://github.com/k56754665/Ratsgo-5000",
+    "githubRequiresAccess": true,
     "title": "HAI: 너 정말 핵심을 찔렀어",
     "event": "NHN AI 해커톤",
     "headline": "AI인 척 인간들의 요청을 처리하세요!",
@@ -239,7 +243,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2026.09"
+        "2026.09 · 2일"
       ],
       [
         "개발 환경",
@@ -346,6 +350,7 @@ const activityProjects = [
     "headline": "오목알을 골라 배치하고, 자동 전투로 다섯 목을 완성하세요.",
     "description": "오목과 오토배틀을 결합한 턴제 전략 게임입니다. 역할과 능력이 다른 오목알을 골라 배치하면 제자리에서 자동으로 전투가 벌어집니다. 상대 진형을 무너뜨리며 먼저 다섯 목을 완성하는 것이 목표입니다.",
     "facts": [
+      ["기간", "2026.09 · 3일"],
       ["팀", "RatsGO"],
       ["개발 환경", "Unity 6"],
       ["플랫폼", "PC Web"]
@@ -379,10 +384,13 @@ const activityProjects = [
     "video": "omok-heroes.mp4",
     "photos": ["omok-cover", "omok-gameplay", "omok-title-screen.png", "omok-battle-screen.png"],
     "playUrl": "https://yohan.dotoridoguldan.com/NAN2026-Project/",
+    "githubUrl": "https://github.com/yhaaan/NAN2026-Project",
     "linkLabel": "게임 플레이"
   },
   {
     "id": "play-your-way",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-PHD",
+    "githubRequiresAccess": true,
     "title": "PLAY it YOUR WAY",
     "event": "PlayStation 협업 프로젝트",
     "headline": "비공개",
@@ -391,7 +399,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2026.08"
+        "2026.08 · 2주"
       ],
       [
         "인원",
@@ -417,6 +425,8 @@ const activityProjects = [
   },
   {
     "id": "monstone",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-MST",
+    "githubRequiresAccess": true,
     "title": "몬스톤: 알까기 대전쟁",
     "event": "넥슨 2026 메커톤 1회차",
     "headline": "부딪히고 터지는 알까기 슈팅 액션!",
@@ -427,7 +437,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2026.07"
+        "2026.07 · 2박 3일"
       ],
       [
         "인원",
@@ -491,6 +501,8 @@ const activityProjects = [
   },
   {
     "id": "stickerbook",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-HoP",
+    "githubRequiresAccess": true,
     "title": "햄스터의 스티커북",
     "event": "텀블벅 펀딩 · Steam 출시",
     "headline": "귀여운 스티커로 데스크톱을 꾸며 보세요!",
@@ -620,6 +632,8 @@ const activityProjects = [
   },
   {
     "id": "hamstory",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-HSR",
+    "githubRequiresAccess": true,
     "title": "Hamstory",
     "event": "Steam 출시",
     "headline": "점프하고, 추락하고, 다시 일어서는 여정.",
@@ -817,7 +831,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2025.08"
+        "2025.08 · 2박 3일"
       ],
       [
         "인원",
@@ -873,6 +887,8 @@ const activityProjects = [
   },
   {
     "id": "horrops",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-Horrops",
+    "githubRequiresAccess": true,
     "title": "Horrops",
     "event": "GameAIfy AI 기반 게임제작 공모전",
     "headline": "종이 세상에서 펼쳐지는 기묘한 이야기",
@@ -883,7 +899,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2025.08"
+        "2025.08 · 2주"
       ],
       [
         "인원",
@@ -1008,6 +1024,8 @@ const activityProjects = [
   },
   {
     "id": "ssangryuk",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-Ssangyuk",
+    "githubRequiresAccess": true,
     "title": "쌍륙",
     "event": "2025 게임인재단 공모전",
     "description": "백제 시대부터 명절과 일상에서 즐겨 온 한국 전통 놀이 ‘쌍륙’을 디지털 게임으로 옮겼습니다. 전래 동화 ‘해와 달이 된 오누이’를 모티프로 한 해님과 달님으로 전통 놀이를 즐길 수 있습니다.",
@@ -1017,7 +1035,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2025.07"
+        "2025.07 · 2주"
       ],
       [
         "인원",
@@ -1151,6 +1169,7 @@ const activityProjects = [
   },
   {
     "id": "hamster-legacy",
+    "githubUrl": "https://github.com/hyh9339/HamsterLegacy",
     "title": "HamsterLegacy",
     "event": "이화여자대학교 게임제작동아리 오르카",
     "headline": "햄스터 요원 Pip의 우주 여정!",
@@ -1220,6 +1239,8 @@ const activityProjects = [
   },
   {
     "id": "bystander",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-Bystander",
+    "githubRequiresAccess": true,
     "title": "방관자: Bystander",
     "event": "만들래 10분 게임콘테스트",
     "headline": "불빛에서 태어난 당신은 과거로 돌아갈 수 없는 세계를 탐험합니다.",
@@ -1331,6 +1352,8 @@ const activityProjects = [
   },
   {
     "id": "snow-love",
+    "githubUrl": "https://github.com/DotoriDoguldan/Project-Snowman",
+    "githubRequiresAccess": true,
     "title": "눈사랑",
     "event": "만들래 10분 게임콘테스트",
     "headline": "눈사람이 녹으면, 봄이 오겠지. 그때 다시 놀자.",
@@ -1427,7 +1450,7 @@ const activityProjects = [
     "facts": [
       [
         "기간",
-        "2025.01"
+        "2025.01 · 2박 3일"
       ],
       [
         "인원",

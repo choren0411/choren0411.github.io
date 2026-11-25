@@ -2,9 +2,19 @@ const view = document.querySelector('#view');
 const site = document.querySelector('#site');
 const intro = document.querySelector('#intro');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const canEditProjects = location.protocol === 'file:';
+const projectDraftKey = id => `portfolio-project-draft:${id}`;
+if (canEditProjects) try {
+  for (const project of projects) {
+    const draft = JSON.parse(localStorage.getItem(projectDraftKey(project.id)));
+    if (draft && typeof draft === 'object') Object.assign(project, draft);
+  }
+} catch {
+  // The original project data remains usable when browser storage is unavailable.
+}
 const labels = ['참여 프로젝트', '수상', 'AI 프로젝트'];
 const colors = ['blue', 'yellow', 'pink'];
-const categories = [projects, featuredAwards, projects.filter(project => project.ai)];
+const categories = [projects, projects.filter(project => project.award), projects.filter(project => project.ai)];
 const assetRevision = '?v=4';
 const metricIcons = ['progect.png', 'win.png', 'ai.png'];
 const posterStills = [
@@ -16,14 +26,12 @@ const posterStills = [
 const posterAnimations = ['monstone-intent.gif', 'bystander-process-player.gif', 'snow-love-character-girl.gif'];
 const posterTileCount = 12;
 const posterAnimationSlots = [2, 9];
-const aiRoleLabels = ['내가 판단한 것', 'AI에 맡긴 것'];
+const aiRoleLabels = ['내가 판단한 것', 'AI에게 맡긴 것'];
 const aiProjectCategory = labels.indexOf('AI 프로젝트');
 let projectCategory = aiProjectCategory;
 let year = '2026';
 let galleryTimer;
 let posterTimer;
-const projectScrollSteps = 4;
-let workflowEndScrollSteps = 0;
 
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]
@@ -146,11 +154,10 @@ function renderWorkProcess() {
       </div>
       <a class="work-process-link" href="#project">AI 프로젝트 바로보기 <span aria-hidden="true">↓</span></a>
     </div>
-  </section><div class="work-process-scroll-end" aria-hidden="true"></div>`;
+  </section>`;
 }
 
 function renderMain() {
-  workflowEndScrollSteps = 0;
   const stills = shuffled(posterStills);
   const animations = shuffled(posterAnimations);
   const posterMedia = stills.slice(0, posterTileCount);
@@ -191,29 +198,76 @@ function renderMain() {
   }
 }
 
-function renderStoryMedia(media = [], layout = '') {
-  return media.length ? `<div class="story-photos ${layout}">
-    ${media.map(([filename, label, fullSize]) => {
-      const url = `assets/${escapeHtml(filename)}`;
-      const title = escapeHtml(label);
-      if (/\.(?:webm|mp4)$/i.test(filename)) {
-        return `<figure><video src="${url}" aria-label="${title}" preload="none" controls playsinline></video><figcaption>${title}</figcaption></figure>`;
-      }
-      const photo = `<img src="${url}" alt="${title}" loading="lazy">`;
-      return fullSize ? `<a href="${url}" target="_blank" rel="noopener">${photo}</a>` : photo;
-    }).join('')}
-  </div>` : '';
+function storyMediaItem([filename, label, fullSize], caption = true) {
+  const url = `assets/${escapeHtml(filename)}`;
+  const title = escapeHtml(label);
+  if (/\.(?:webm|mp4)$/i.test(filename)) {
+    const video = `<video src="${url}" aria-label="${title}" preload="none" controls playsinline></video>`;
+    return caption ? `<figure>${video}<figcaption>${title}</figcaption></figure>` : video;
+  }
+  const photo = `<img src="${url}" alt="${title}" loading="lazy">`;
+  return fullSize ? `<a href="${url}" target="_blank" rel="noopener">${photo}</a>` : photo;
 }
 
-function story(title, rows = [], reverse = false, media = [], aiRoles = []) {
-  if (!rows.length && !media.length && !aiRoles.length) return '';
-  return `<section class="story wrap ${reverse ? 'reverse' : ''}"><h2>${title}</h2>
-    ${rows.map(([image, alt, description]) => `<div class="story-row${image ? '' : ' story-text'}">
-      <p>${escapeHtml(description)}</p>${image ? `<img src="${imagePath(image)}" alt="${escapeHtml(alt)}" loading="lazy">` : ''}
-    </div>`).join('')}${renderStoryMedia(media)}
+function renderStoryMedia(media = [], layout = '') {
+  return media.length ? `<div class="story-photos ${layout}">${media.map(item => storyMediaItem(item)).join('')}</div>` : '';
+}
+
+function storyRows(rows = [], media = []) {
+  const remaining = [...media];
+  const pairs = rows.map(([image, alt, description]) => [
+    image ? [imagePath(image).slice('assets/'.length), alt] : remaining.shift(),
+    description
+  ]);
+  return [...pairs, ...remaining.map(item => [item, item[1]])].map(([item, description]) =>
+    `<div class="story-row${item ? '' : ' story-text'}">
+      ${item ? `<div class="story-row-media">${storyMediaItem(item, false)}</div>` : ''}
+      <p>${escapeHtml(description)}</p>
+    </div>`).join('');
+}
+
+function story(project) {
+  const rows = storyRows(project.intent, project.intentMedia) + storyRows(project.process, project.processMedia);
+  const aiRoles = project.aiRoles ?? [];
+  if (!rows && !aiRoles.length) return '';
+  return `<section class="story wrap"><h2>기획 의도 및 개발 과정</h2>
     ${aiRoles.length ? `<dl class="ai-roles">${aiRoles.map((description, index) =>
       `<div><dt>${aiRoleLabels[index]}</dt><dd>${escapeHtml(description)}</dd></div>`).join('')}</dl>` : ''}
+    ${rows}
   </section>`;
+}
+
+const projectTextFields = [
+  ['title', '프로젝트명'], ['event', '행사·프로젝트 구분'], ['headline', '소개 제목'],
+  ['description', '프로젝트 소개'], ['role', '기여도 요약'], ['award', '수상명'],
+  ['status', '진행 상태'], ['outcome', '주요 성과'], ['linkLabel', '플레이 링크 문구']
+];
+
+function projectEditor(project) {
+  const field = (name, label, value = '') => `<label>${escapeHtml(label)}
+    <textarea name="${name}" rows="2">${escapeHtml(value)}</textarea></label>`;
+  const paragraphFields = (key, label) => (project[key]?.length ? project[key] : [[null, null, '']])
+    .map(([, , text], index) => field(`${key}-${index}`, `${label} 문단 ${index + 1}`, text)).join('');
+  return `<form id="project-editor" class="project-editor" data-project-id="${project.id}" hidden>
+    <h2>프로젝트 텍스트 편집</h2>
+    <p>수정한 내용은 이 브라우저에 저장됩니다.</p>
+    <div class="project-editor-fields">
+      ${projectTextFields.map(([key, label]) => field(key, label, project[key])).join('')}
+      ${(project.facts ?? []).map(([label, value], index) => field(`fact-${index}`, label, value)).join('')}
+      ${(project.contributions ?? []).map(([label], index) => field(`contribution-${index}`, `기여도 항목 ${index + 1}`, label)).join('')}
+      ${field('detailedContributions', '상세 기여 (한 줄에 한 항목)', project.detailedContributions?.join('\n'))}
+      ${field('tools', '활용 도구 (한 줄에 한 항목)', project.tools?.join('\n'))}
+      ${project.ai ? aiRoleLabels.map((label, index) => field(`aiRole-${index}`, label, project.aiRoles?.[index])).join('') : ''}
+      ${paragraphFields('intent', '기획 의도')}
+      ${paragraphFields('process', '개발 과정')}
+    </div>
+    <div class="project-editor-actions">
+      <button type="submit">저장</button>
+      <button type="button" data-toggle-editor>취소</button>
+      <button type="button" data-export-project>저장된 수정본 다운로드</button>
+    </div>
+    <p data-editor-status role="status"></p>
+  </form>`;
 }
 
 function renderProject(project) {
@@ -224,34 +278,52 @@ function renderProject(project) {
   const gallery = project.photos?.length || project.video;
   view.innerHTML = `<article>
     <header class="project-header wrap">
-      <a class="back" href="#project">프로젝트 목록</a>
+      <div class="project-header-actions"><a class="back" href="#project">프로젝트 목록</a>
+        ${canEditProjects ? '<button type="button" data-toggle-editor aria-controls="project-editor" aria-expanded="false">편집 모드</button>' : ''}
+      </div>
       <div class="project-heading"><div><h1>${escapeHtml(project.title)}</h1><p>${escapeHtml(project.event)}</p></div>
         ${project.award ? `<div class="award yellow"><img src="assets/win.png${assetRevision}" alt="">${escapeHtml(project.award)}</div>` : ''}
       </div>
+      ${canEditProjects ? projectEditor(project) : ''}
     </header>
-    ${project.facts ? `<dl class="facts wrap">${project.facts.map(([label, value]) =>
-      `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl>` : ''}
     ${gallery ? '<section id="gallery" class="gallery" aria-label="프로젝트 시연 및 스크린샷"></section>' : ''}
-    ${project.headline || project.description ? `<section class="game-description wrap"><h2>프로젝트 소개</h2>
+    ${project.headline || project.description || project.playUrl || project.githubUrl ? `<section class="game-description wrap">
+      <div class="project-intro-heading">
+        <h2>프로젝트 소개</h2>
+        ${project.githubUrl ? `<a href="${escapeHtml(project.githubUrl)}" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.49c-2.23.48-2.7-.95-2.7-.95-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.22.82 1.22.82.72 1.22 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.96 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.08-1.87 3.76-3.65 3.96.29.25.54.73.54 1.48v2.21c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg>GitHub
+          ${project.githubRequiresAccess ? '<small>권한 필요</small>' : ''}
+        </a>` : ''}
+        ${project.playUrl ? `<a href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer">
+          <span aria-hidden="true">▶</span>${escapeHtml(project.linkLabel || '게임 플레이')}
+        </a>` : ''}
+      </div>
       ${project.headline ? `<h3>${escapeHtml(project.headline)}</h3>` : ''}
       ${project.description ? `<p>${escapeHtml(project.description)}</p>` : ''}</section>` : ''}
-    ${story('기획 의도', project.intent, false, project.intentMedia, project.aiRoles)}
-    ${story('개발 과정', project.process, true, project.processMedia)}
-    ${project.contributions || project.tools?.length || project.role ? `<section class="contribution wrap"><h2>기여도</h2>
+    ${project.facts ? `<dl class="facts wrap">${project.facts.map(([label, value]) =>
+      `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl>` : ''}
+    ${story(project)}
+    <section class="contribution wrap"><h2>기여도</h2>
       ${project.role ? `<p>${escapeHtml(project.role)}</p>` : ''}
       ${(project.contributions ?? []).map(([label, amount, color]) => `<div class="bar ${color}">
         <label>${escapeHtml(label)} ${amount}%<meter min="0" max="100" value="${amount}">${amount}%</meter></label></div>`).join('')}
+      ${project.detailedContributions?.length || canEditProjects ? `<details class="detailed-contribution"${project.detailedContributions?.length ? ' open' : ''}>
+        <summary>상세 기여</summary>
+        ${project.detailedContributions?.length
+          ? `<ul>${project.detailedContributions.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
+          : '<p>등록된 상세 기여가 없습니다.</p>'}
+        ${canEditProjects ? '<button type="button" data-toggle-editor data-focus-detail>상세 기여 편집</button>' : ''}
+      </details>` : ''}
       ${project.tools?.length ? `<h3 class="tools-heading">활용 도구</h3>
         <ul class="chips">${project.tools.map(tool => `<li>${escapeHtml(tool)}</li>`).join('')}</ul>` : ''}
-    </section>` : ''}
+    </section>
     ${project.status || project.award || project.outcome || project.outcomeMedia?.length || project.outcomeLinks?.length ? `<section class="outcome wrap"><h2>주요 성과</h2>
       ${[project.award, project.status, project.outcome].filter(Boolean).map(item => `<p>${escapeHtml(item)}</p>`).join('')}
       ${project.outcomeLinks?.length ? `<ul class="outcome-links" aria-label="관련 기사">
         ${project.outcomeLinks.map(([label, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a></li>`).join('')}
       </ul>` : ''}
       ${renderStoryMedia(project.outcomeMedia, project.id === 'colla-zoo' ? 'booth-photos' : '')}</section>` : ''}
-    ${project.playUrl ? `<a class="play" href="${escapeHtml(project.playUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(project.linkLabel || '게임 플레이')}</a>`
-      : project.linkLabel ? `<p class="release-status wrap">${escapeHtml(project.linkLabel)}</p>` : ''}
+    ${!project.playUrl && project.linkLabel ? `<p class="release-status wrap">${escapeHtml(project.linkLabel)}</p>` : ''}
     <nav class="project-next" aria-label="다른 프로젝트"${next.cover ? ` style="--cover:url('${imagePath(next.cover)}')"` : ''}>
       <a href="${projectLink(previous)}" aria-label="이전 프로젝트 ${escapeHtml(previous.title)}">◀ <span>Previous</span></a>
       <a class="next-title" href="${projectLink(next)}">${escapeHtml(next.title)}</a>
@@ -393,9 +465,85 @@ function renderRoute(moveFocus = false) {
   if (moveFocus) view.focus({ preventScroll: true });
 }
 
+view.addEventListener('submit', event => {
+  const form = event.target;
+  if (!canEditProjects || form.id !== 'project-editor') return;
+  event.preventDefault();
+  const project = projects.find(item => item.id === form.dataset.projectId);
+  const fields = new FormData(form);
+  const read = key => String(fields.get(key) ?? '').trim();
+  const lines = key => read(key).split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  const draft = Object.fromEntries(projectTextFields.map(([key]) => [key, read(key)]));
+  if (!draft.title) {
+    form.querySelector('[data-editor-status]').textContent = '프로젝트명을 입력해 주세요.';
+    form.elements.title.focus();
+    return;
+  }
+  draft.detailedContributions = lines('detailedContributions');
+  draft.tools = lines('tools');
+  if (project.facts) draft.facts = project.facts.map(([label], index) => [label, read(`fact-${index}`)]);
+  if (project.contributions) {
+    draft.contributions = project.contributions.map(([, amount, color], index) => [read(`contribution-${index}`), amount, color]);
+  }
+  if (project.ai) {
+    const roles = aiRoleLabels.map((_, index) => read(`aiRole-${index}`));
+    draft.aiRoles = roles.some(Boolean) ? roles : [];
+  }
+  for (const key of ['intent', 'process']) {
+    const existing = project[key]?.length ? project[key] : [[null, null]];
+    draft[key] = existing.map(([image, alt], index) => [image, alt, read(`${key}-${index}`)])
+      .filter(([image, , text]) => image || text);
+  }
+  try {
+    localStorage.setItem(projectDraftKey(project.id), JSON.stringify(draft));
+  } catch {
+    form.querySelector('[data-editor-status]').textContent = '브라우저 저장소에 쓸 수 없습니다. 입력한 내용은 편집창에 남아 있습니다.';
+    return;
+  }
+  Object.assign(project, draft);
+  categories[1] = projects.filter(item => item.award);
+  renderRoute(true);
+});
+
 view.addEventListener('click', event => {
   const button = event.target.closest('button');
   if (!button) return;
+  if (button.hasAttribute('data-toggle-editor')) {
+    const form = view.querySelector('#project-editor');
+    const trigger = view.querySelector('[aria-controls="project-editor"]');
+    const focusDetail = button.hasAttribute('data-focus-detail');
+    form.hidden = !form.hidden && !focusDetail;
+    trigger.setAttribute('aria-expanded', String(!form.hidden));
+    if (form.hidden) {
+      form.reset();
+      form.querySelector('[data-editor-status]').textContent = '';
+      trigger.focus();
+    } else {
+      form.elements[focusDetail ? 'detailedContributions' : 'title'].focus();
+    }
+    return;
+  }
+  if (button.hasAttribute('data-export-project')) {
+    const form = button.form;
+    const status = form.querySelector('[data-editor-status]');
+    try {
+      const id = form.dataset.projectId;
+      const draft = localStorage.getItem(projectDraftKey(id));
+      if (!draft) {
+        status.textContent = '먼저 변경 사항을 저장해 주세요.';
+        return;
+      }
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(new Blob([JSON.stringify({ id, ...JSON.parse(draft) }, null, 2)], { type: 'application/json' }));
+      link.href = url;
+      link.download = `${id}-portfolio-draft.json`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch {
+      status.textContent = '저장된 수정본을 읽을 수 없습니다.';
+    }
+    return;
+  }
   if (button.hasAttribute('data-hero')) {
     const regular = document.querySelector('#hero-default');
     const profile = document.querySelector('#hero-profile');
@@ -418,21 +566,21 @@ view.addEventListener('click', event => {
 
 function startIntro() {
   const lines = [
-    [['지금 보고계신 페이지,', '']],
-    [['사람', 'blue'], ['이 ', ''], ['[FIGMA]', 'blue'], ['로 설계하고,', '']],
-    [['AI', 'pink'], [' 툴 ', ''], ['[CODEX]', 'pink'], ['로 구현했습니다.', '']]
+    [['지금 보고 계신 페이지,', '']],
+    [['사람', 'blue'], ['이 [', ''], ['FIGMA', 'blue', true], [']로 설계하고,', '']],
+    [['AI', 'pink'], [' 툴 [', ''], ['CODEX', 'pink', true], [']로 구현했습니다.', '']]
   ];
-  const tools = [['[FIGMA]', '[BLENDER]', '[PROCREATE]'], ['[CODEX]', '[CLAUDE]', '[CHATGPT]']];
+  const tools = [['FIGMA', 'BLENDER', 'PROCREATE'], ['CODEX', 'CLAUDE', 'CHATGPT']];
   const typing = document.querySelector('#typing');
   const segments = lines.flatMap(line => {
     const row = typing.appendChild(document.createElement('div'));
-    return line.map(([value, color]) => {
+    return line.map(([value, color, rotates]) => {
       const span = row.appendChild(document.createElement('span'));
       span.className = color;
-      return { span, value };
+      return { span, value, rotates };
     });
   });
-  const variable = segments.filter(({ value }) => value.startsWith('['));
+  const variable = segments.filter(({ rotates }) => rotates);
   const start = performance.now();
   function type(now) {
     const elapsed = now - start;
@@ -457,14 +605,5 @@ function startIntro() {
 }
 
 addEventListener('hashchange', () => renderRoute(true));
-addEventListener('wheel', event => {
-  if (site.hidden || event.ctrlKey || event.deltaY === 0) return;
-  const end = view.querySelector('.work-process-scroll-end');
-  if (!end || end.getBoundingClientRect().top > window.innerHeight - 56 || event.deltaY < 0) {
-    workflowEndScrollSteps = 0;
-    return;
-  }
-  if (++workflowEndScrollSteps === projectScrollSteps) location.hash = '#project';
-}, { passive: true });
 renderRoute();
 if (!location.hash || location.hash === '#main') startIntro();
