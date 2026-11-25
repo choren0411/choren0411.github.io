@@ -14,7 +14,8 @@ if (canEditProjects) try {
 }
 const labels = ['참여 프로젝트', '수상', 'AI 프로젝트'];
 const colors = ['blue', 'yellow', 'pink'];
-const categories = [projects, projects.filter(project => project.award), projects.filter(project => project.ai)];
+const showsInAwards = project => Boolean(project.award) && project.id !== 'hai';
+const categories = [projects, projects.filter(showsInAwards), projects.filter(project => project.ai)];
 const assetRevision = '?v=4';
 const metricIcons = ['progect.png', 'win.png', 'ai.png'];
 const posterStills = [
@@ -128,10 +129,10 @@ function shuffled(items) {
 
 function renderWorkProcess() {
   const steps = [
-    ['설계', 'yellow', '한 줄로 정의하고, 실행할 단위로 쪼갭니다.', 'colla-zoo-process-1.png', 'colla-zoo'],
-    ['판단', 'blue', 'AI가 만든 여러 안 중에서, 방향은 제가 정합니다.', 'suncheon-process-1.png', 'suncheon'],
+    ['설계', 'yellow', '한 줄로 정의하고, 실행할 단위로 쪼갭니다.', 'colla-zoo-process-1.png', 'colla-zoo', '플레이어가 어떤 재미를 느껴야 하는지 먼저 정하고, 그 경험을 게임 규칙과 화면 흐름으로 구체화합니다.'],
+    ['판단', 'blue', 'AI가 만든 여러 안 중에서, 방향은 제가 정합니다.', 'suncheon-process-1.png', 'suncheon', '웹 프로토타입으로 진행 방식과 재미를 확인하고, 플레이 흐름을 기준으로 유지할 규칙과 바꿀 규칙을 결정합니다.'],
     ['구현', 'pink', '구현은 AI 에이전트에게, 반복 작업은 툴로', 'nara-prototype.jpg', 'nara', 'Figma 화면을 기준으로 Claude Code·Codex가 구현하고, 반복 작업은 전용 툴로 만들어 에이전트가 쓰게 합니다.'],
-    ['검증', 'green', '동작은 자동 테스트로, 재미는 직접 플레이로', 'hai-process-2.png', 'hai']
+    ['검증', 'green', '동작은 자동 테스트로, 재미는 직접 플레이로', 'hai-process-2.png', 'hai', 'Unity CLI로 컴파일과 콘솔 오류를 확인하고, 테스트 씬과 디버그 바로가기로 특정 상황을 재현해 수정 결과를 확인합니다.']
   ];
   return `<section class="work-process" aria-labelledby="work-process-title">
     <div class="wrap">
@@ -578,7 +579,7 @@ view.addEventListener('submit', event => {
     return;
   }
   Object.assign(project, draft);
-  categories[1] = projects.filter(item => item.award);
+  categories[1] = projects.filter(showsInAwards);
   renderRoute(true);
 });
 
