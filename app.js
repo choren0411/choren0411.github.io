@@ -136,23 +136,22 @@ function renderWorkProcess() {
   return `<section class="work-process" aria-labelledby="work-process-title">
     <div class="wrap">
       <h2 id="work-process-title">; How 🙋 Work With 🤖</h2>
-      <ol class="work-process-flow" aria-label="작업 순서">
-        ${steps.map(([title, color]) => `<li class="${color}">${title}</li>`).join('')}
-      </ol>
-      <div class="work-process-steps">
-        ${steps.map(([title, color, description, image, id, detail]) => {
+      <ol class="work-process-steps" aria-label="작업 순서">
+        ${steps.map(([title, color, description, image, id, detail], index) => {
           const project = projects.find(item => item.id === id);
-          return `<article class="work-step">
+          return `<li>
+            ${index ? '<div class="work-process-arrow" aria-hidden="true">↓</div>' : ''}
+            <article class="work-step">
             <img src="assets/${image}" alt="${escapeHtml(project.title)} 작업 화면" loading="lazy">
             <div class="work-step-copy">
               <h3 class="${color}">${title}</h3>
               <p>${description}</p>
               ${detail ? `<p class="work-step-detail">${detail}</p>` : ''}
-              <a href="${projectLink(project)}">${escapeHtml(id === 'hai' ? 'HAI' : project.title)} <span aria-hidden="true">↗</span></a>
             </div>
-          </article>`;
+            <a href="${projectLink(project)}">${escapeHtml(id === 'hai' ? 'HAI' : project.title)} <span aria-hidden="true">↗</span></a>
+          </article></li>`;
         }).join('')}
-      </div>
+      </ol>
       <a class="work-process-link" href="#project/all">모든 프로젝트 바로보기 <span aria-hidden="true">↗</span></a>
     </div>
   </section>`;
