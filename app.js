@@ -22,6 +22,8 @@ let projectCategory = aiProjectCategory;
 let year = '2026';
 let galleryTimer;
 let posterTimer;
+const projectScrollSteps = 4;
+let workflowEndScrollSteps = 0;
 
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]
@@ -38,7 +40,7 @@ const phone = '<a href="tel:+821039824154">010-3982-4154</a>';
 function cards(items) {
   return items.map(project => `<a class="card ${project.cover && !['colla', 'hai'].includes(project.cover) ? 'full-cover' : ''}" href="${projectLink(project)}">
     ${project.cover ? `<img src="${imagePath(project.cover)}" alt="" loading="lazy">` : ''}
-    ${project.award ? `<img class="card-medal" src="assets/win.png${assetRevision}" alt="">` : ''}
+    ${project.award && project.id !== 'hai' ? `<img class="card-medal" src="assets/win.png${assetRevision}" alt="">` : ''}
     <div class="card-copy">${project.award || project.status ? `<small>${escapeHtml(project.award || project.status)}</small>` : ''}
     <span>${escapeHtml(project.event)}</span><strong>${escapeHtml(project.title)}</strong></div>
   </a>`).join('');
@@ -88,13 +90,12 @@ function animateProjectSummary() {
 }
 
 function renderProjectIndex(animate = false) {
-  const completedProjects = projects.filter(project => project.id !== 'community-mentor').length;
   view.innerHTML = `<section class="project-index">
     <div class="wrap project-summary">
       <div class="project-summary-copy">
         <h1><span class="summary-line"><span class="pink">5 번</span>의 게임잼,</span>
           <span class="summary-line"><span class="yellow">2 번</span>의 Steam·콘솔 출시,</span>
-          <span class="summary-line"><span class="blue">${completedProjects} 건</span>의 프로젝트를 완주했습니다.</span></h1>
+          <span class="summary-line"><span class="blue">${projects.length}건</span>의 프로젝트를 완주했습니다.</span></h1>
         <p>먼저 판단하고, AI와 함께 끝까지 완성하는 기획자입니다.</p>
       </div>
       ${metrics(projectCategory)}
@@ -149,6 +150,7 @@ function renderWorkProcess() {
 }
 
 function renderMain() {
+  workflowEndScrollSteps = 0;
   const stills = shuffled(posterStills);
   const animations = shuffled(posterAnimations);
   const posterMedia = stills.slice(0, posterTileCount);
@@ -297,7 +299,7 @@ function setupGallery(project) {
     gallery.querySelectorAll('[data-step]').forEach(button => { button.hidden = !multiplePhotos; });
     toggle.hidden = !showingVideo && !multiplePhotos;
     if (!showingVideo && !paused && multiplePhotos) {
-      galleryTimer = setInterval(() => advance(1), project.slideIntervalMs ?? 4200);
+      galleryTimer = setInterval(() => advance(1), 1300);
     }
   }
 
@@ -455,11 +457,14 @@ function startIntro() {
 }
 
 addEventListener('hashchange', () => renderRoute(true));
-addEventListener('scroll', () => {
+addEventListener('wheel', event => {
+  if (site.hidden || event.ctrlKey || event.deltaY === 0) return;
   const end = view.querySelector('.work-process-scroll-end');
-  if (!site.hidden && end && end.getBoundingClientRect().top <= window.innerHeight - 56) {
-    location.hash = '#project';
+  if (!end || end.getBoundingClientRect().top > window.innerHeight - 56 || event.deltaY < 0) {
+    workflowEndScrollSteps = 0;
+    return;
   }
+  if (++workflowEndScrollSteps === projectScrollSteps) location.hash = '#project';
 }, { passive: true });
 renderRoute();
 if (!location.hash || location.hash === '#main') startIntro();

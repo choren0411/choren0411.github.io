@@ -353,6 +353,10 @@ const activityProjects = [
     "intent": [
       [null, null, "오토배틀의 유닛 조합과 배치 전략을 처음 접하는 플레이어도 쉽게 시작할 수 있도록, 오목의 익숙한 승리 조건인 ‘다섯 개 잇기’를 핵심 목표로 삼았습니다."]
     ],
+    "intentMedia": [
+      ["omok-intent-1.mp4", "오목 히어로즈 기획 영상 1"],
+      ["omok-intent-2.mp4", "오목 히어로즈 기획 영상 2"]
+    ],
     "aiRoles": [
       "오목과 오토배틀을 결합한 플레이 규칙, 구현 요구사항과 검증 기준 설정",
       "Codex로 기능 구현과 수정, ChatGPT·Codex로 아트 에셋 생성"
@@ -373,7 +377,7 @@ const activityProjects = [
     "ai": true,
     "cover": "omok-cover",
     "video": "omok-heroes.mp4",
-    "photos": ["omok-cover", "omok-gameplay"],
+    "photos": ["omok-cover", "omok-gameplay", "omok-title-screen.png", "omok-battle-screen.png"],
     "playUrl": "https://yohan.dotoridoguldan.com/NAN2026-Project/",
     "linkLabel": "게임 플레이"
   },
@@ -774,7 +778,6 @@ const activityProjects = [
     "ai": true,
     "cover": "suncheon-slide-01",
     "video": "suncheon-full.mp4",
-    "slideIntervalMs": 1000,
     "photos": [
       "suncheon-slide-01",
       "suncheon-slide-02",
