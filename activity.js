@@ -604,7 +604,12 @@ const activityProjects = [
     "video": "stickerbook.mp4",
     "photos": [
       "stickerbook-1",
-      "stickerbook-2"
+      "stickerbook-2",
+      "stickerbook-process-1.png",
+      "stickerbook-process-2.png",
+      "stickerbook-process-3.png",
+      "stickerbook-process-4.png",
+      "stickerbook-process-5.png"
     ],
     "processMedia": [
       [
@@ -616,54 +621,6 @@ const activityProjects = [
         "stickerbook-process-steam.png",
         "햄스터의 스티커북 Steam 상점 페이지",
         true
-      ],
-      [
-        "stickerbook-process-1.png",
-        "햄스터의 스티커북 상점 스크린샷 1"
-      ],
-      [
-        "stickerbook-process-2.png",
-        "햄스터의 스티커북 상점 스크린샷 2"
-      ],
-      [
-        "stickerbook-process-3.png",
-        "햄스터의 스티커북 상점 스크린샷 3"
-      ],
-      [
-        "stickerbook-process-4.png",
-        "햄스터의 스티커북 상점 스크린샷 4"
-      ],
-      [
-        "stickerbook-process-5.png",
-        "햄스터의 스티커북 상점 스크린샷 5"
-      ],
-      [
-        "stickerbook-process-basics.webm",
-        "기본 기능"
-      ],
-      [
-        "stickerbook-process-album.webm",
-        "스티커북 둘러보기"
-      ],
-      [
-        "stickerbook-process-memo.webm",
-        "메모지 사용"
-      ],
-      [
-        "stickerbook-process-letters.webm",
-        "알파벳 스티커 붙이기"
-      ],
-      [
-        "stickerbook-process-shop.webm",
-        "상점"
-      ],
-      [
-        "stickerbook-process-draw.webm",
-        "스티커 뽑기"
-      ],
-      [
-        "stickerbook-process-figma.webm",
-        "Figma 화면"
       ]
     ],
     "process": [
