@@ -27,8 +27,7 @@ const posterAnimations = ['monstone-intent.gif', 'bystander-process-player.gif',
 const posterTileCount = 12;
 const posterAnimationSlots = [2, 9];
 const aiRoleLabels = ['내가 판단한 것', 'AI에게 맡긴 것'];
-const aiProjectCategory = labels.indexOf('AI 프로젝트');
-let projectCategory = aiProjectCategory;
+let projectCategory = 0;
 let year = '2026';
 let galleryTimer;
 let posterTimer;
@@ -48,7 +47,9 @@ const phone = '<a href="tel:+821039824154">010-3982-4154</a>';
 function cards(items) {
   return items.map(project => `<a class="card ${project.cover && !['colla', 'hai'].includes(project.cover) ? 'full-cover' : ''}" href="${projectLink(project)}">
     ${project.cover ? `<img src="${imagePath(project.cover)}" alt="" loading="lazy">` : ''}
-    ${project.award && project.id !== 'hai' ? `<img class="card-medal" src="assets/win.png${assetRevision}" alt="">` : ''}
+    ${project.award && project.id !== 'hai' ? `<img class="card-badge card-medal" src="assets/win.png${assetRevision}" alt="">` : ''}
+    ${project.playUrl?.startsWith('https://store.steampowered.com/app/') ? '<img class="card-badge card-steam" src="assets/steam-badge.png?v=59" alt="Steam 출시">' : ''}
+    ${project.ai ? `<img class="card-badge card-ai" src="assets/ai.png${assetRevision}" alt="AI 프로젝트">` : ''}
     <div class="card-copy">${project.award || project.status ? `<small>${escapeHtml(project.award || project.status)}</small>` : ''}
     <span>${escapeHtml(project.event)}</span><strong>${escapeHtml(project.title)}</strong></div>
   </a>`).join('');
@@ -152,7 +153,7 @@ function renderWorkProcess() {
           </article>`;
         }).join('')}
       </div>
-      <a class="work-process-link" href="#project">AI 프로젝트 바로보기 <span aria-hidden="true">↓</span></a>
+      <a class="work-process-link" href="#project/all">모든 프로젝트 바로보기 <span aria-hidden="true">↗</span></a>
     </div>
   </section>`;
 }
@@ -179,7 +180,7 @@ function renderMain() {
       <button type="button" class="name-trigger expanded-name" data-hero aria-expanded="true" aria-controls="hero-profile">KIM JIMIN</button>
       ${education}
     </div>
-  </section>${renderWorkProcess()}`;
+  </section>${renderWorkProcess()}${renderMainProfile()}`;
   if (!reducedMotion.matches) {
     const tiles = [...view.querySelectorAll('.poster-media img')];
     posterTimer = setInterval(() => {
@@ -213,27 +214,57 @@ function renderStoryMedia(media = [], layout = '') {
   return media.length ? `<div class="story-photos ${layout}">${media.map(item => storyMediaItem(item)).join('')}</div>` : '';
 }
 
-function storyRows(rows = [], media = []) {
+function storyRows(section, rows = [], media = []) {
   const remaining = [...media];
   const pairs = rows.map(([image, alt, description]) => [
     image ? [imagePath(image).slice('assets/'.length), alt] : remaining.shift(),
     description
   ]);
-  return [...pairs, ...remaining.map(item => [item, item[1]])].map(([item, description]) =>
-    `<div class="story-row${item ? '' : ' story-text'}">
-      ${item ? `<div class="story-row-media">${storyMediaItem(item, false)}</div>` : ''}
-      <p>${escapeHtml(description)}</p>
-    </div>`).join('');
+  const occurrences = new Map();
+  return [...pairs, ...remaining.map(item => [item, item[1], true])].map(([item, description, isCaption]) => {
+    const filename = item?.[0] ?? 'text';
+    const occurrence = (occurrences.get(filename) ?? 0) + 1;
+    occurrences.set(filename, occurrence);
+    return { id: `${section}:${filename}:${occurrence}`, item, description, isCaption };
+  });
+}
+
+function orderedStoryRows(project) {
+  const rows = [
+    ...storyRows('intent', project.intent, project.intentMedia),
+    ...storyRows('process', project.process, project.processMedia)
+  ];
+  const byId = new Map(rows.map(row => {
+    const label = project.storyMediaLabels?.[row.id];
+    if (row.item && label) {
+      row.item = [row.item[0], label, row.item[2]];
+      if (row.isCaption) row.description = label;
+    }
+    return [row.id, row];
+  }));
+  const ordered = [];
+  for (const id of project.storyOrder ?? []) {
+    if (!byId.has(id)) continue;
+    ordered.push(byId.get(id));
+    byId.delete(id);
+  }
+  return [...ordered, ...byId.values()];
 }
 
 function story(project) {
-  const rows = storyRows(project.intent, project.intentMedia) + storyRows(project.process, project.processMedia);
+  const rows = orderedStoryRows(project);
   const aiRoles = project.aiRoles ?? [];
-  if (!rows && !aiRoles.length) return '';
+  if (!rows.length && !aiRoles.length) return '';
   return `<section class="story wrap"><h2>기획 의도 및 개발 과정</h2>
     ${aiRoles.length ? `<dl class="ai-roles">${aiRoles.map((description, index) =>
       `<div><dt>${aiRoleLabels[index]}</dt><dd>${escapeHtml(description)}</dd></div>`).join('')}</dl>` : ''}
-    ${rows}
+    ${rows.map(({ item, description, isCaption }) => `<div class="story-row${item ? '' : ' story-text'}">
+      ${item ? `<div class="story-row-media">${storyMediaItem(item, false)}</div>` : ''}
+      <div class="story-row-copy">
+        ${item && !isCaption ? `<h3>${escapeHtml(item[1])}</h3>` : ''}
+        ${description ? `<p>${escapeHtml(description)}</p>` : ''}
+      </div>
+    </div>`).join('')}
   </section>`;
 }
 
@@ -248,6 +279,7 @@ function projectEditor(project) {
     <textarea name="${name}" rows="2">${escapeHtml(value)}</textarea></label>`;
   const paragraphFields = (key, label) => (project[key]?.length ? project[key] : [[null, null, '']])
     .map(([, , text], index) => field(`${key}-${index}`, `${label} 문단 ${index + 1}`, text)).join('');
+  const storyItems = orderedStoryRows(project);
   return `<form id="project-editor" class="project-editor" data-project-id="${project.id}" hidden>
     <h2>프로젝트 텍스트 편집</h2>
     <p>수정한 내용은 이 브라우저에 저장됩니다.</p>
@@ -261,6 +293,20 @@ function projectEditor(project) {
       ${paragraphFields('intent', '기획 의도')}
       ${paragraphFields('process', '개발 과정')}
     </div>
+    ${storyItems.some(row => row.item) || storyItems.length > 1 ? `<fieldset class="story-order-editor">
+      <legend>기획 의도 및 개발 과정 이름·순서</legend>
+      <ol data-story-order>
+        ${storyItems.map(({ id, item, description }, index) => {
+          const label = escapeHtml(item?.[1] || description.slice(0, 70) || '텍스트 문단');
+          return `<li data-original-position="${index}">
+            ${item ? `<input type="text" name="storyLabel:${escapeHtml(id)}" value="${label}" aria-label="${label} 표시 이름">` : `<span>${label}</span>`}
+            <input type="hidden" name="storyOrder" value="${escapeHtml(id)}">
+            <button type="button" data-move-story="up" aria-label="${label} 위로">↑</button>
+            <button type="button" data-move-story="down" aria-label="${label} 아래로">↓</button>
+          </li>`;
+        }).join('')}
+      </ol>
+    </fieldset>` : ''}
     <div class="project-editor-actions">
       <button type="submit">저장</button>
       <button type="button" data-toggle-editor>취소</button>
@@ -412,20 +458,47 @@ function renderExperience() {
   const rows = experience.filter(item => year === '2023-' ? item.year <= 2023 : String(item.year) === year);
   panel.innerHTML = `<div class="years" role="group" aria-label="경력 연도">
     ${['2026', '2025', '2024', '2023-'].map(value => `<button type="button" data-year="${value}" aria-pressed="${year === value}">${value}</button>`).join('')}
-    </div><ul class="experience-list">${rows.length ? rows.map(item => {
+    </div>${experienceRows(rows, year !== '2023-')}`;
+}
+
+function experienceRows(rows, monthOnly, compact = false) {
+  return `<ul class="experience-list">${rows.length ? rows.map(item => {
       const project = projects.find(entry => entry.id === item.project);
       const record = project || otherAwards.find(entry => entry.id === item.project);
       const title = record && !item.label.includes(record.title) ? `${item.label} 〈${record.title}〉` : item.label;
       const label = escapeHtml(title);
       const award = record?.award && !(record.id === 'oilgenie' && item.tag === '교내활동') ? record.award : '';
-      return `<li><b>${escapeHtml(year === '2023-' ? item.date : item.date.slice(5))}<span class="sr-only">월</span></b>
+      return `<li><b>${escapeHtml(monthOnly ? item.date.slice(5) : item.date)}<span${compact ? '' : ' class="sr-only"'}>월</span></b>
         <div>${project ? `<a href="${projectLink(project)}">${label}</a>` :
           item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${label}</a>` : label}
-          ${award ? `<span class="yellow"> · ${escapeHtml(award)}</span>` : ''}
+          ${award ? `<span class="yellow experience-award">${compact ? '<img src="assets/win.png" alt="">' : ' · '}${escapeHtml(award)}</span>` : ''}
           ${item.note ? `<p class="experience-note">${escapeHtml(item.note)}</p>` : ''}
           ${project && item.url ? `<a class="experience-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">관련 링크</a>` : ''}
-        </div><strong>${escapeHtml(item.tag)}</strong></li>`;
+        </div>${compact ? '' : `<strong>${escapeHtml(item.tag)}</strong>`}</li>`;
     }).join('') : '<li class="empty">등록된 활동이 없습니다.</li>'}</ul>`;
+}
+
+function renderMainProfile() {
+  const years = [...new Set(experience.map(item => item.year))].sort((a, b) => b - a);
+  return `<section class="main-profile" aria-labelledby="main-profile-title">
+    <div class="wrap">
+      <h2 id="main-profile-title">Profile</h2>
+      <div class="main-profile-grid">
+        <div class="main-profile-info">
+          <img src="${imagePath('portrait')}" alt="김지민 프로필 사진" width="409" height="475" loading="lazy">
+          ${education}
+          <div class="main-profile-card">
+            <p>${github}</p>
+            <dl>${skills.map(([label, , items]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(items.join(' · '))}</dd></div>`).join('')}</dl>
+          </div>
+        </div>
+        <div class="main-profile-timeline" aria-label="연도별 활동">
+          ${years.map(value => `<section><h3>${value}</h3>${experienceRows(experience.filter(item => item.year === value), true, true)}</section>`).join('')}
+        </div>
+      </div>
+      <button class="back-to-top" type="button" data-back-to-top><span aria-hidden="true">↑</span>맨 위로</button>
+    </div>
+  </section>`;
 }
 
 function renderProfile() {
@@ -457,7 +530,7 @@ function renderRoute(moveFocus = false) {
   else if (page === 'profile') renderProfile();
   else if (project) renderProject(project);
   else {
-    projectCategory = aiProjectCategory;
+    projectCategory = 0;
     renderProjectIndex(true);
   }
   document.title = project && page === 'project' ? project.title + ' | 김지민' : '김지민 | AI GAME DESIGNER';
@@ -480,6 +553,11 @@ view.addEventListener('submit', event => {
     return;
   }
   draft.detailedContributions = lines('detailedContributions');
+  draft.storyOrder = fields.getAll('storyOrder');
+  draft.storyMediaLabels = Object.fromEntries(orderedStoryRows(project).flatMap(({ id, item }) => {
+    const label = read(`storyLabel:${id}`);
+    return item && label ? [[id, label]] : [];
+  }));
   draft.tools = lines('tools');
   if (project.facts) draft.facts = project.facts.map(([label], index) => [label, read(`fact-${index}`)]);
   if (project.contributions) {
@@ -508,6 +586,24 @@ view.addEventListener('submit', event => {
 view.addEventListener('click', event => {
   const button = event.target.closest('button');
   if (!button) return;
+  if (button.hasAttribute('data-back-to-top')) {
+    document.querySelector('[data-page="main"]').focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    return;
+  }
+  if (button.dataset.moveStory) {
+    const item = button.closest('li');
+    if (button.dataset.moveStory === 'up') {
+      item.previousElementSibling?.before(item);
+    } else {
+      item.nextElementSibling?.after(item);
+    }
+    const direction = button.dataset.moveStory;
+    const sibling = direction === 'up' ? item.previousElementSibling : item.nextElementSibling;
+    const opposite = direction === 'up' ? 'down' : 'up';
+    (sibling ? button : item.querySelector(`[data-move-story="${opposite}"]`)).focus();
+    return;
+  }
   if (button.hasAttribute('data-toggle-editor')) {
     const form = view.querySelector('#project-editor');
     const trigger = view.querySelector('[aria-controls="project-editor"]');
@@ -516,6 +612,8 @@ view.addEventListener('click', event => {
     trigger.setAttribute('aria-expanded', String(!form.hidden));
     if (form.hidden) {
       form.reset();
+      const order = form.querySelector('[data-story-order]');
+      if (order) order.append(...[...order.children].sort((a, b) => a.dataset.originalPosition - b.dataset.originalPosition));
       form.querySelector('[data-editor-status]').textContent = '';
       trigger.focus();
     } else {

@@ -2,6 +2,9 @@
 const activityProjects = [
   {
     "id": "community-mentor",
+    "detailedContributions": [
+      "스마일게이트 희망스튜디오 〈우리동네 플레이어〉에서 6주간 청년 창작 멘토로 활동했습니다."
+    ],
     "title": "우리동네 플레이어",
     "event": "스마일게이트 희망스튜디오",
     "description": "스마일게이트 희망스튜디오 〈우리동네 플레이어〉에서 청년 창작 멘토로 활동했습니다.",
@@ -20,6 +23,13 @@ const activityProjects = [
   },
   {
     "id": "colla-zoo",
+    "detailedContributions": [
+      "6종 동물의 머리·몸통·다리를 나눠 조작하는 협동 콘셉트를 제안했습니다.",
+      "부위별 외형과 능력이 달라지는 216가지 조합을 핵심 구조로 제안했습니다.",
+      "서로 다른 기믹을 가진 7개 방으로 연구소 탈출 레벨을 구성하는 방향을 제안했습니다.",
+      "인게임 연구소 배경 리소스를 제작했습니다.",
+      "인트로와 아웃트로 컷신의 스토리보드를 설계했습니다."
+    ],
     "githubUrl": "https://github.com/yhaaan/Unity_AI_Game_Jam_07",
     "title": "Colla-ZOO",
     "event": "Unity AI Game Jam",
@@ -101,6 +111,10 @@ const activityProjects = [
       [
         "colla-zoo-process-4.png",
         "Colla-ZOO의 AI 개발 흐름"
+      ],
+      [
+        "colla-zoo-process-video.mp4",
+        "Colla-ZOO 개발 과정 영상"
       ]
     ],
     "outcomeLinks": [
@@ -149,6 +163,13 @@ const activityProjects = [
   },
   {
     "id": "nara",
+    "detailedContributions": [
+      "나라장터 가격 퀴즈의 추가 시스템을 기획하고 기획 문서를 정리했습니다.",
+      "Figma에서 가격 입력과 결과 확인에 필요한 화면 레이아웃을 설계했습니다.",
+      "PC와 모바일 화면을 검토하고 결과 등급 화면을 개선했습니다.",
+      "인게임 그래픽 리소스를 제작하고 음악과 효과음 시안을 비교했습니다.",
+      "프로젝트 소개용 영상을 편집했습니다."
+    ],
     "title": "나라장터 HOW MUCH?",
     "event": "조달청 AI 게임·콘텐츠 공모전 출품",
     "headline": "나라장터 입찰에 도전해 익숙한 물건의 가격을 맞혀 보세요!",
@@ -232,6 +253,13 @@ const activityProjects = [
   },
   {
     "id": "hai",
+    "detailedContributions": [
+      "사람이 AI처럼 응답하는 콘셉트에 맞춰 등장인물의 페르소나를 설계하고 LLM과 연동했습니다.",
+      "채팅 화면의 UI/UX를 구성하고 코드 편집기와 계산기 화면용 리소스를 제작했습니다.",
+      "모델 해금 화면에 들어가는 스킬트리 노드와 배경 영상을 제작했습니다.",
+      "덤벨 미니게임에 들어가는 그래픽 리소스를 제작했습니다.",
+      "타이틀 로고와 인물 프로필, 대화에 쓰이는 밈 이미지 리소스를 제작했습니다."
+    ],
     "githubUrl": "https://github.com/k56754665/Ratsgo-5000",
     "githubRequiresAccess": true,
     "title": "HAI: 너 정말 핵심을 찔렀어",
@@ -345,6 +373,13 @@ const activityProjects = [
   },
   {
     "id": "omok-heroes",
+    "detailedContributions": [
+      "생성형 AI를 활용해 배경, 로고, 타이틀, UI, 아이콘, 유닛 등 게임 아트 리소스를 제작하고 리터칭했습니다.",
+      "시스템, AI 적용 방식, 실행 방법을 중심으로 심사 제출용 기획서를 작성하고 시각 자료를 담은 HTML 문서를 제작했습니다.",
+      "팀의 AI 활용 범위와 개발·검증 절차를 정리한 AI 기술 활용 문서 작성을 총괄했습니다.",
+      "외부 에셋과 오픈소스, 유료 에셋의 라이선스를 점검할 수 있도록 제출 문서에 항목을 추가했습니다.",
+      "게임의 핵심 재미를 분석하고 소개에 사용할 슬로건과 홍보 문구를 작성했습니다."
+    ],
     "title": "오목 히어로즈",
     "event": "NHN AI 해커톤 사전과제",
     "headline": "오목알을 골라 배치하고, 자동 전투로 다섯 목을 완성하세요.",
@@ -389,6 +424,13 @@ const activityProjects = [
   },
   {
     "id": "play-your-way",
+    "detailedContributions": [
+      "언어 선택 아이콘과 입력 UI에 쓰이는 원형 리소스를 제작했습니다.",
+      "리더보드 화면용 그래픽과 랭킹 아이콘을 제작했습니다.",
+      "이름 입력 UI와 잠금 상태를 보여 주는 실루엣을 제작했습니다.",
+      "시작 안내와 진행 게이지에 사용할 UI 리소스를 제작했습니다.",
+      "결과 화면의 아트를 수정하고 버튼 배경과 캐릭터 그림자 리소스를 다듬었습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-PHD",
     "githubRequiresAccess": true,
     "title": "PLAY it YOUR WAY",
@@ -425,6 +467,13 @@ const activityProjects = [
   },
   {
     "id": "monstone",
+    "detailedContributions": [
+      "한 번의 드래그로 몬스톤을 튕기는 조작을 중심으로 플레이 흐름을 기획했습니다.",
+      "모바일과 웹에서 같은 조작 방식으로 플레이할 수 있도록 화면 구성을 고려했습니다.",
+      "게임의 아트 콘셉트를 정하고 UI/UX 레이아웃을 구성했습니다.",
+      "인게임 캐릭터의 시각 방향과 구성을 기획했습니다.",
+      "캐릭터가 배치되는 인게임 배경의 구성을 기획했습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-MST",
     "githubRequiresAccess": true,
     "title": "몬스톤: 알까기 대전쟁",
@@ -501,6 +550,11 @@ const activityProjects = [
   },
   {
     "id": "stickerbook",
+    "detailedContributions": [
+      "데스크톱 위에 스티커를 붙이고 떼는 오버레이 앱의 콘텐츠 기획에 참여했습니다.",
+      "스티커와 앱 화면에 쓰이는 아트 리소스 제작을 맡았습니다.",
+      "스티커북, 메모지, 상점 등 주요 기능 화면의 시각 디자인 작업에 참여했습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-HoP",
     "githubRequiresAccess": true,
     "title": "햄스터의 스티커북",
@@ -632,6 +686,13 @@ const activityProjects = [
   },
   {
     "id": "hamstory",
+    "detailedContributions": [
+      "캐릭터와 게임 내러티브를 기획했습니다.",
+      "게임 전체 아트 에셋을 제작하고 화면 레이아웃과 UI/UX를 설계했습니다.",
+      "일기장에 쓰이는 스티커 리소스를 수정했습니다.",
+      "비즈니스 리더로서 스토브 Indie Boost Lab과 PlayX4 등 외부 프로그램과 전시 참여를 담당했습니다.",
+      "해외 콘솔 퍼블리싱 계약을 담당하고 유튜브·인스타그램 채널을 운영했습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-HSR",
     "githubRequiresAccess": true,
     "title": "Hamstory",
@@ -733,6 +794,13 @@ const activityProjects = [
   },
   {
     "id": "suncheon",
+    "detailedContributions": [
+      "순천만 생물의 발견과 도감 등록을 연결하는 도감 구성을 기획했습니다.",
+      "플레이 중 필요한 도감과 인게임 UI/UX를 기획했습니다.",
+      "아트 디렉팅을 맡아 순천만의 생태를 수채화풍으로 표현하는 시각 방향을 정했습니다.",
+      "GameAIfy로 수채화 에셋 시안을 생성하고 비교했습니다.",
+      "Procreate로 생성 시안을 후처리해 게임에 쓰이는 아트 리소스의 스타일을 맞췄습니다."
+    ],
     "title": "천만해요, 순천만",
     "event": "2025 순천 AI 게임잼",
     "headline": "아름다운 순천만의 생물들을 만나보세요.",
@@ -825,6 +893,11 @@ const activityProjects = [
   },
   {
     "id": "memories",
+    "detailedContributions": [
+      "인게임 화면에 표시할 HUD의 구성을 기획했습니다.",
+      "인게임 HUD의 화면 레이아웃과 시각 디자인을 맡았습니다.",
+      "게임에 들어가는 아트 리소스를 제작했습니다."
+    ],
     "title": "How Can I Make Memories",
     "event": "제2회 스파르타게임잼",
     "headline": "우리는 어떻게 기억을 만들까요?",
@@ -887,6 +960,13 @@ const activityProjects = [
   },
   {
     "id": "horrops",
+    "detailedContributions": [
+      "이질적인 존재를 배척하는 군중의 이야기를 1인칭 공포로 풀어내는 방향을 기획했습니다.",
+      "레벨별 장면과 공간을 설계하고 플레이어가 이동하는 흐름을 구성했습니다.",
+      "시야 제한과 플레이어를 응시하는 오브젝트를 이용해 장면의 긴장감을 설계했습니다.",
+      "GameAIfy로 종이 질감의 시각 표현을 실험하고 게임 아트 에셋을 제작했습니다.",
+      "생성한 아트 에셋을 보정해 게임에 적용했습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-Horrops",
     "githubRequiresAccess": true,
     "title": "Horrops",
@@ -1024,6 +1104,13 @@ const activityProjects = [
   },
   {
     "id": "ssangryuk",
+    "detailedContributions": [
+      "전통 놀이 쌍륙을 처음 접하는 플레이어도 규칙을 익힐 수 있도록 UI/UX를 기획했습니다.",
+      "〈해와 달이 된 오누이〉에서 가져온 해님과 달님을 중심으로 아트 콘셉트를 구성했습니다.",
+      "튜토리얼과 규칙을 보여 주는 화면의 표현 방식을 설계했습니다.",
+      "오프닝 컷신의 스토리보드를 제작했습니다.",
+      "GameAIfy로 아트 에셋을 제작하고 보정해 게임에 적용했습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-Ssangyuk",
     "githubRequiresAccess": true,
     "title": "쌍륙",
@@ -1124,6 +1211,10 @@ const activityProjects = [
   },
   {
     "id": "floor",
+    "detailedContributions": [
+      "큐브를 정리하고 쌓아 올라가는 캐주얼 게임의 기획에 참여했습니다.",
+      "게임 아트 리소스 제작을 맡았습니다."
+    ],
     "title": "FLOOR",
     "event": "커피한잔 게임 콘테스트",
     "headline": "큐브를 쌓으며 올라가세요.",
@@ -1169,6 +1260,13 @@ const activityProjects = [
   },
   {
     "id": "hamster-legacy",
+    "detailedContributions": [
+      "공모전 주제인 ‘커피 한 잔’을 편안한 우주 모험으로 풀어내는 기획에 참여했습니다.",
+      "Unity에서 5개 스테이지의 레벨을 디자인했습니다.",
+      "스테이지마다 적용할 레벨 기믹을 설계했습니다.",
+      "인게임에서 반복되는 플레이 흐름을 설계했습니다.",
+      "플레이를 구성하는 핵심 메커니즘을 고안했습니다."
+    ],
     "githubUrl": "https://github.com/hyh9339/HamsterLegacy",
     "title": "HamsterLegacy",
     "event": "이화여자대학교 게임제작동아리 오르카",
@@ -1239,6 +1337,13 @@ const activityProjects = [
   },
   {
     "id": "bystander",
+    "detailedContributions": [
+      "‘방치’를 타인에 대한 방관으로 해석하고, 도덕적 딜레마를 선택지로 체험하는 게임을 기획했습니다.",
+      "흑백 픽셀 그래픽으로 게임 맵에 사용할 아트 리소스를 제작했습니다.",
+      "선택과 대화를 전달하는 UI 레이아웃을 디자인했습니다.",
+      "플레이어 캐릭터의 픽셀 애니메이션을 제작했습니다.",
+      "노인, 여성, 아내 등 NPC의 픽셀 애니메이션을 제작했습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-Bystander",
     "githubRequiresAccess": true,
     "title": "방관자: Bystander",
@@ -1352,6 +1457,13 @@ const activityProjects = [
   },
   {
     "id": "snow-love",
+    "detailedContributions": [
+      "눈사람과 가족의 기억을 중심으로 한 서사형 게임의 기획에 참여했습니다.",
+      "아이 캐릭터의 픽셀 그래픽과 의상 변형을 제작했습니다.",
+      "강아지 캐릭터의 픽셀 애니메이션을 제작했습니다.",
+      "엄마와 아이가 등장하는 컷신용 아트를 제작했습니다.",
+      "눈사람을 만드는 엔딩 컷신에 쓰이는 아트를 제작했습니다."
+    ],
     "githubUrl": "https://github.com/DotoriDoguldan/Project-Snowman",
     "githubRequiresAccess": true,
     "title": "눈사랑",
@@ -1439,6 +1551,13 @@ const activityProjects = [
   },
   {
     "id": "unbelibubble",
+    "detailedContributions": [
+      "주방 속 비눗방울을 보호하는 게임의 기획에 참여했습니다.",
+      "주방을 표현할 도트 그래픽 텍스처의 UV 맵을 제작했습니다.",
+      "도트 텍스처를 3D 모델에 적용했습니다.",
+      "타이틀과 시작 버튼의 시안을 제작했습니다.",
+      "만화 형식의 연출 시안을 제작했습니다."
+    ],
     "cover": "unbelibubble-process-1.png",
     "title": "Unbubblibubble",
     "event": "2025 젬파이 × in Seoul 게임잼",
@@ -1566,7 +1685,7 @@ const activityLog = [
     "2026.11",
     "스마일게이트 희망스튜디오 〈우리동네 플레이어〉 청년 창작 멘토 활동",
     "대외활동",
-    null,
+    "community-mentor",
     "청소년과 7주간 AI 활용 게임 제작 및 전시"
   ],
   [
